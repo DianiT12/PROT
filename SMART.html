@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESET® - AGENTES IA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="IMAGENES/ICONO.png" type="image/x-icon">
+    <link rel="stylesheet" href="estilo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lobster&family=Poppins&family=Playfair+Display&family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<style>
+  /* --- Header Superior --- */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    padding: 10px 20px;
+    color: white;
+    width: 100%;
+    position: fixed;
+    top: 10px;
+    left: 0;
+    z-index: 0;
+}
+
+/* En pantallas pequeñas (celular), ponemos el header encima */
+@media (max-width: 600px) {
+  .top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    padding: 10px 20px;
+    color: white;
+    width: 100%;
+    position: fixed;
+    top: 10px;
+    left: 0;
+    z-index: 1;
+  }
+}
+
+.top-header .right-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.top-header img {
+    height: 40px;
+}
+</style>
+
+<body>
+
+<!-- Header -->
+<header class="top-header">
+  <div></div> <!-- Espacio vacío para centrar -->
+  <div class="right-header" style="display: flex; flex-direction: column; align-items: center;">
+      <a href="#" onclick="openModal()" style="margin-top: 5px; text-decoration: none; color: #666; font-weight: bold; font-size: 15px;">Ayuda❓</a>
+  </div>
+</header>
+
+  <button class="hamburger" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+  <div id="fechaHoraEcuador" class="fecha-hora-ecuador"></div>
+  <style>.fecha-hora-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.fecha-hora-ecuador {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2c2c2c;
+  padding: 10px 30px;
+  background: linear-gradient(to right, #fdfbff, #e3e3ff);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  max-width: 100%;
+  animation: fadeIn 1s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+}
+
+.fecha-hora-ecuador::before {
+  content: "🕒";
+  font-size: 20px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+
+  <script>
+    // ✅ Mostrar sección 'ventas-comercial' (Cerebro Central) al cargar la página
+document.addEventListener("DOMContentLoaded", function () {
+  showSection('ventas-comercial');
+
+  // Opcional: Oculta mensaje de bienvenida si está visible
+  const mensajeBienvenida = document.getElementById("mensajeBienvenida");
+  const mensajeKai = document.getElementById("mensajeKai");
+
+  if (mensajeBienvenida) mensajeBienvenida.style.display = "none";
+  if (mensajeKai) mensajeKai.style.display = "none";
+});
+  </script>
+
+  <script src="SCRIPTS/fechayhoraec.js"></script>
+  <script src="SCRIPTS/ESCONDERLOGO.js"></script>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <style>
+.sidebar {
+  background-color: #f5f5f5;
+  width: 260px;
+  padding: 20px 10px;
+  border-right: 1px solid #e0e0e0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.sidebar .menu ul,
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar .menu-text {
+  font-weight: 500;
+  font-size: 14px;
+  color: #1a1a1a;
+}
+
+.sidebar li {
+  padding: 10px;
+  border-radius: 12px;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+.sidebar li:hover {
+  background: rgba(0, 0, 0, 0.07);
+  transform: translateX(6px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.sidebar li i {
+  color: #6b6b6b;
+  font-size: 16px;
+}
+
+.sidebar .info-icon {
+  margin-left: auto;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.05);
+  color: #000;
+  padding: 3px 6px;
+  border-radius: 50%;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.sidebar .info-icon:hover {
+  background: rgba(0, 0, 0, 0.15);
+  transform: scale(1.1);
+}
+
+.sidebar .highlight-box {
+  font-size: 13px;
+  background-color: rgba(120, 120, 120, 0.1);
+  color: #333;
+  padding: 10px 14px;
+  border-radius: 12px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+}
+
+.sidebar .highlight-box i {
+  color: #555;
+}
+    </style>
+    <div id="overlay-menu"></div>
+    <button id="collapse-menu"><i class="fas fa-chevron-left"></i></button><br>
+    <a href="SMART.html"><center><img src="IMAGENES/LOGO-UAHM-rojo.png" alt="Logo" class="logo" style="width: 200px;"></center></a><br>
+
+<!-- MODAL FLOTANTE CON VIDEO LOCAL -->
+<div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; justify-content:center; align-items:center;">
+  <div style="position:relative; width:90%; max-width:640px; background:#fff; border-radius:10px; padding:15px;">
+    <span onclick="closeModal()" style="position:absolute; top:10px; right:15px; font-size:24px; font-weight:bold; color:#333; cursor:pointer; z-index:1001;">&times;</span>
+    <video id="localVideo" controls style="width:100%; border-radius:10px;"><source src="IMAGENES/ClonPame.mp4" type="video/mp4">Tu navegador no soporta la reproducción de video.</video>
+  </div>
+</div>
+<script src="SCRIPTS/ayudatutorial.js"></script>
+<style>
+  .menu-text {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+  }
+
+  .menu-icon {
+    font-size: 20px;
+    min-width: 28px;
+    color: gray;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .menu-section,
+  .header-section {
+    cursor: pointer;
+    padding: 14px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    border-top: 2px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .menu-section:hover {
+    background: #f3f3f3;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.06);
+  }
+
+  .menu-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .info-icon {
+    font-size: 14px;
+    background: transparent;
+    color: #7c5a6a;
+    padding: 4px 6px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .header-section {
+    background: linear-gradient(135deg, #f5dce5, #d4e6f1, #eec3ce);
+  }
+
+  .header-section i,
+  .header-section svg {
+    color: #000;
+    fill: #000;
+  }
+
+  .static-title {
+  background: linear-gradient(135deg, #f5dce5, #d4e6f1, #eec3ce);
+  cursor: default !important;
+  box-shadow: none !important;
+}
+
+.static-title:hover {
+  background: linear-gradient(135deg, #f5dce5, #d4e6f1, #eec3ce); /* sin efecto hover */
+}
+
+.move-right {
+  margin-left: 40px; /* puedes ajustar este valor */
+}
+
+.big-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+</style>
+
+<div class="menu">
+  <ul>
+   <!-- Cerebro Central -->
+<div class="menu-section" onclick="showSection('ventas-comercial')" title="Cerebro Central">
+      <div class="menu-left">
+        <i class="fas fa-brain menu-icon"></i>
+        <span class="menu-text">Cerebro Central</span>
+      </div>
+      <span class="info-icon" onclick="showCustomTooltip(event, `🧠 Cerebro Central.<br>Despierta el potencial: Chatea con IA, crea imágenes, edita visualmente, analiza documentos para transformar tus ideas en acción.`); event.stopPropagation();">i</span>
+    </div>
+
+    <!-- Creador de Prompt -->
+    <div class="menu-section" onclick="showSection('prompt')"title="Creador de Prompt">
+      <div class="menu-left">
+        <i class="fas fa-compass menu-icon"></i>
+        <span class="menu-text">Creador de Prompt</span>
+      </div>
+      <span class="info-icon" onclick="showCustomTooltip(event, `✍️ Creador de Prompts<br>• Usa plantillas por área<br>• O crea uno desde cero con RESET®: claro, potente y alineado a tu objetivo.`); event.stopPropagation();">i</span>
+    </div>
+
+    <!-- Al día en IA -->
+    <div class="menu-section" onclick="showSection('formacion-inteligente')"title="Al día en IA">
+      <div class="menu-left">
+        <svg class="menu-icon" width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="gray">
+          <rect x="16" y="12" width="32" height="32" rx="8" />
+          <circle cx="24" cy="24" r="4" fill="#fff"/>
+          <circle cx="40" cy="24" r="4" fill="#fff"/>
+          <rect x="24" y="32" width="16" height="8" rx="4" fill="#fff"/>
+          <rect x="10" y="20" width="6" height="16" rx="2"/>
+          <rect x="48" y="20" width="6" height="16" rx="2"/>
+          <rect x="30" y="4" width="4" height="8" rx="2"/>
+          <circle cx="32" cy="2" r="2"/>
+          <rect x="24" y="46" width="16" height="4" rx="2"/>
+          <rect x="26" y="52" width="12" height="4" rx="2"/>
+        </svg>
+        <span class="menu-text">Al día en IA</span>
+      </div>
+      <span class="info-icon" onclick="showCustomTooltip(event, `🤖 Al día en IA<br>• Educación Continua<br>• Podcast con Mentes Maestras®<br>• Prueba para tu certificación.`); event.stopPropagation();">i</span>
+    </div>
+
+    <!-- Especializaciones -->
+   <div class="menu-section static-title"><div class="menu-left move-right"><span class="menu-text big-title"><strong>Especializaciones</strong></span></div></div>
+
+    <!-- IA & Neuroliderazgo -->
+   <div class="menu-section" onclick="showSection('ia-neuroliderazgo')" title="IA en Neuroliderazgo"><div class="menu-left"><i class="fas fa-rocket menu-icon"></i><span class="menu-text">IA & NeuroLiderazgo</span></div>
+     <span class="info-icon" onclick="showCustomTooltip(event, `🧠 Integra inteligencia artificial con liderazgo consciente.<br>
+     Formación para líderes del futuro desde la neurociencia aplicada,<br>
+     potenciando la toma de decisiones con tecnología.`); event.stopPropagation();">i</span>
+   </div>
+
+    <!-- Maestrías -->
+   <div class="menu-section static-title"><div class="menu-left move-right"><span class="menu-text"><strong>Entrenamiento Digital</strong></span></div></div>
+
+    <!-- Constelaciones Familiares -->
+    <div class="menu-section" onclick="showSection('riqueza-digital')" title="Riqueza Digital"><div class="menu-left"><i class="fas fa-chart-line menu-icon"></i><span class="menu-text">Riqueza Digital</span></div>
+      <span class="info-icon" onclick="showCustomTooltip(event, `💰 Riqueza Digital<br>• Aprende a generar ingresos con inteligencia artificial<br>• Transforma tu conocimiento en activos digitales<br>• Construye libertad desde tu talento.`); event.stopPropagation();">i</span>
+    </div>
+  </ul>
+</div>
+      
+      <!-- TOOLTIP FLOTANTE -->
+      <div id="customTooltip" class="custom-tooltip"><span class="close-tooltip" onclick="hideCustomTooltip()">✖</span>
+        <div class="tooltip-content"><img src="IMAGENES/ava.jpg" class="avatar" alt="Avatar"><div class="text" id="tooltipText"></div></div>
+        <script src="SCRIPTS/informacionmenu.js"></script>      
+      </div>
+    </div>
+    <script src="SCRIPTS/toggle.js"></script>
+    <script src="SCRIPTS/ColapsarMenu.js"></script>
+  </div>
+
+<!-- PROMPT UNIVERSITARIO -->
+<div id="prompt" class="section">
+  <style>
+    /* Contenedor general */
+#prompt.section {
+  background: #f9f9fc;
+  padding: 40px 20px;
+  border-radius: 12px;
+  font-family: 'Segoe UI', sans-serif;
+  z-index: 0;
+  justify-content: center;
+}
+
+/* Títulos */
+#prompt h2 {
+  color: #000;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: linear-gradient(135deg, #e6ecf7, #b773df44);
+  padding: 15px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #000;
+  font-size: 16px;
+}
+
+.card p {
+  color: #000;
+  font-size: 14px;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.3); /* más sutil */
+  backdrop-filter: blur(4px); /* efecto moderno */
+}
+
+.modal-content {
+  background-color: #f2f6fc; /* azul muy claro */
+  margin: auto;
+  padding: 24px;
+  border-radius: 16px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* sombra suave y amplia */
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal-content h2 {
+  color: #1f3a93; /* azul más intenso y profesional */
+}
+
+.close {
+  color: #888;
+  float: right;
+  font-size: 26px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close:hover {
+  color: #1f3a93; /* color más visible al pasar el cursor */
+}
+
+/* Inputs */
+.input-field {
+  width: 90%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #000;
+  margin-bottom: 15px;
+  background-color: white;
+  font-size: 14px;
+  color: #333;
+}
+
+.input-field:focus {
+  border-color:#7c7c7c;
+  outline: none;
+}
+
+/* Botón */
+.btn-generar {
+  background-color: #7c7c7c;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-generar:hover {
+  background-color: #7c7c7c;
+}
+</style>
+
+  <div class="container"><h2>Generador de Prompts RESET® Académico</h2><br>
+    <div class="card-grid">
+      <div class="card" onclick="mostrarModal(`Actúa como asesor académico. Ayúdame a crear un plan curricular para una maestría en inteligencia artificial aplicada al marketing digital y la publicidad.`)">
+        <h3 style="color: black;">✦Diseño Curricular</h3>
+        <p>Desarrolla un plan de estudios para una maestría innovadora.</p>
+      </div>
+      
+      <div class="card" onclick="mostrarModal(`Actúa como investigador experto. Ayúdame a construir una línea de investigación en neuroeducación basada en IA para entornos vulnerables.`)">
+        <h3 style="color: black;">✦Investigación Académica</h3>
+        <p>Define una línea de investigación con impacto social.</p>
+      </div>
+      
+      <div class="card" onclick="mostrarModal(`Actúa como comité académico. Revisa y mejora un protocolo de tesis para presentarlo al comité doctoral.`)">
+        <h3 style="color: black;">✦Revisión de Tesis</h3>
+        <p>Optimiza propuestas para cumplir estándares académicos.</p>
+      </div>
+      
+      <div class="card" onclick="mostrarModal(`Actúa como mentor universitario. Diseña un programa de mentoría entre estudiantes y docentes enfocado en neurociencias y liderazgo transformacional.`)">
+        <h3 style="color: black;">✦Mentoría Académica</h3>
+        <p>Crea un sistema de mentoría eficaz entre pares y docentes.</p>
+      </div>
+      
+      <div class="card" onclick="mostrarModal(`Actúa como coordinador de proyectos. Ayúdame a diseñar un laboratorio de neurociencias aplicadas para una universidad de América Latina.`)">
+        <h3 style="color: black;">✦Laboratorio Universitario</h3>
+        <p>Diseña la visión y estructura de un laboratorio académico.</p>
+      </div>
+      
+      <div class="card" onclick="mostrarModal(`Actúa como director de tesis. Quiero que me ayudes a estructurar una propuesta de investigación para un doctorado en neurociencias aplicadas. Define objetivo, hipótesis, metodología y relevancia académica.`)">
+        <h3 style="color: black;">✦Dirección de Tesis</h3>
+        <p>Estructura una propuesta de investigación doctoral.</p>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h3>Prompt Detallado</h3>
+        <textarea id="modalPrompt" readonly></textarea>
+        <button onclick="copiarPrompt()" style="background-color: #f2f7fb;color: #2a6ec9;font-family: 'Inter', sans-serif;font-weight: 500;font-size: 14px;padding: 10px 18px;border: 1.5px solid #c6e2fa;border-radius: 12px;cursor: pointer;display: inline-flex;align-items: center;gap: 8px;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);transition: all 0.2s ease-in-out;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2a6ec9" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 18H8V7h11v16z"/></svg>Copiar Prompt</button>        
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h2 style="text-align: center; color: black; margin-bottom: 25px;">✦Generador RESET® Personalizado Académico</h2>
+
+      <label for="area">Área Académica:</label>
+      <select id="area" class="input-field">
+        <option value="">-- Selecciona un área --</option>
+        <option value="Investigación Científica">Investigación Científica</option>
+        <option value="Educación Superior">Educación Superior</option>
+        <option value="Psicología Profunda">Psicología Profunda</option>
+        <option value="IA y Neurociencia">IA y Neurociencia</option>
+        <option value="Gestión Académica">Gestión Académica</option>
+      </select>
+
+      <label for="realidad">R - Realidad / Contexto:</label>
+      <textarea id="realidad" class="input-field" placeholder="Ej. Estoy elaborando mi tesis de maestría sobre aprendizaje automático aplicado a procesos de enseñanza-aprendizaje."></textarea>
+
+      <label for="experto">E - Enfoque del Experto:</label>
+      <textarea id="experto" class="input-field" placeholder="Ej. Actúa como tutor de tesis, académico en pedagogía o experto en análisis cualitativo."></textarea>
+
+      <label for="salida">S - Salida esperada:</label>
+      <textarea id="salida" class="input-field" placeholder="Ej. Una estructura de capítulos para la tesis y una tabla comparativa de autores."></textarea>
+
+      <label for="especificaciones">E - Especificaciones:</label>
+      <textarea id="especificaciones" class="input-field" placeholder="Ej. Debe incluir citas APA y sugerencias de autores relevantes."></textarea>
+
+      <label for="terminos">T - Términos o Restricciones:</label>
+      <textarea id="terminos" class="input-field" placeholder="Ej. No usar lenguaje informal. El texto debe ser aplicable a contexto académico latinoamericano."></textarea>
+
+      <div style="text-align: center; margin-top: 30px;">
+        <button onclick="generarPrompt()" style="
+          background-color: #eaf4ff;color: #2a6ec9;font-family: 'Inter', sans-serif;font-weight: 500;font-size: 14px;padding: 10px 18px;border: 1.5px solid #bcdfff;border-radius: 12px;cursor: pointer;display: inline-flex;align-items: center;gap: 8px;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);transition: all 0.2s ease-in-out;">
+          ✦ Generar Prompt RESET Académico
+        </button>
+      </div>      
+
+      <div id="output" style="margin-top: 30px;">
+        <label for="promptFinal">📄 Prompt generado:</label>
+        <textarea readonly id="promptFinal" placeholder="Tu prompt aparecerá aquí..." class="input-field" style="height: 140px;"></textarea>
+      </div>
+    </div>
+  </div>
+  <script src="SCRIPTS/promptto.js"></script>
+  <script src="SCRIPTS/ComportamientoSecciones.js"></script>
+</div>
+
+    <!-- SECCIÓN DE VENTAS-->
+<div id="ventas-comercial" class="section">
+  <h2 id="saludoUsuario" style="font-weight: 400; font-size: 32px; color: #1a1a1a; font-family: 'Segoe UI', sans-serif;"></h2>
+
+  <script>
+    let nombreUsuario = localStorage.getItem("usuarioActivo") || "Usuario";
+    document.getElementById("saludoUsuario").innerText = `Hola ${nombreUsuario}, ¿En qué te puedo ayudar hoy?`;
+  </script><br><br> 
+
+   <div class="cards">
+      <div class="card" onclick="abrirVistaPreviaKai()"><i class="fas fa-handshake"></i><p><strong>✦Conversa con Kai®</strong><br><br>Habla en tiempo real y resuelve tus inquietudes al instante.</p></div>
+      <div class="card" onclick="toggleAdStrategyVentas()"><i class="fas fa-image"></i><p><strong>✦Genera artes visuales</strong><br><br>Transforma tus ideas en artes visuales con un solo clic.</p></div>
+      <div class="card" onclick="openDocumentSectionVentas()"><i class="fas fa-file-alt"></i><p><strong>✦Archivo inteligente</strong><br><br>Interpreta, resume o analiza un archivo al instante</p></div>
+    </div>
+
+  
+<!-- 📄 CHAT DOCUMENTOS KAI® -->
+<div id="documentSectionVentas" style="display: none; text-align: center; margin-top: 30px;">
+  <div class="chat-wrapper">
+    <div class="chat-section" style="position: relative; max-width: 810px; margin: 0 auto; padding: 20px; background-color: transparent; border-radius: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+
+      <!-- Botón de cerrar -->
+      <button onclick="cerrarDocumentSectionVentas()" title="Cerrar" style="position: absolute; top: -10px; right: -10px; background: #fef1f1; border: 1px solid #f3c6c6; color: #c0392b; font-size: 18px; padding: 5px 10px; border-radius: 50%; cursor: pointer; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">✖</button>
+      <div id="chatMessagesDocs" style="margin-bottom: 20px; min-height: 100px;"></div>
+      <div style="display: flex; align-items: center; padding: 12px 16px; border-radius: 14px; background-color: #fff; margin-bottom: 10px; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 8px; white-space: nowrap; font-family: 'Inter', sans-serif; font-size: 13px; color: #2a6ec9;">
+          <label for="fileInputDocs" title="Adjuntar archivo" style="cursor: pointer;">
+            <i class="fas fa-paperclip"></i>
+          </label>
+          <span id="fileNameDisplay">Documento</span>
+        </div>
+
+        <!-- Línea vertical divisoria -->
+        <div style="height: 80px; width: 1px; background-color: #000;"></div>
+
+        <!-- Textarea -->
+        <textarea id="userInputDocs" placeholder="Haz tu pregunta sobre el archivo..." style="flex: 1; border: none; outline: none; resize: none; font-family: 'Inter', sans-serif; font-size: 14px; background: transparent;"></textarea>
+
+        <!-- Botón Enviar -->
+        <button onclick="askAIWithDoc()" title="Enviar" style="background: #fff; border: 1px solid #e0e0e0; padding: 8px 12px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); cursor: pointer;"><i class="fas fa-paper-plane" style="color: #2a6ec9;"></i></button>
+
+        <!-- Botón Nueva Consulta -->
+        <button onclick="nuevaConsultaDocs()" title="Nueva consulta" style="background: #edf6ff; border: 1.5px solid #c6e2fa; padding: 8px 12px; border-radius: 10px; font-size: 14px; color: #2a6ec9; font-family: 'Inter', sans-serif; font-weight: 500; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">🔄</button>
+
+        <!-- Input oculto -->
+        <input type="file" id="fileInputDocs" accept=".txt,.pdf,.png,.jpg,.jpeg,.webp" style="display: none;" onchange="mostrarNombreArchivo(event)">
+      </div>
+
+      <!-- Barra de carga -->
+      <div id="loadingContainerDocs" style="display:none; text-align:center; margin: 20px auto;">
+        <div style="width: 100%; max-width: 500px; margin: 0 auto; border-radius: 20px; background-color: #f3f3f3; overflow: hidden; height: 24px; border: 1px solid #ccc; box-shadow: inset 0 0 6px #ddd;">
+          <div id="progressBarDocs" style="width: 0%; height: 100%; background-image: repeating-linear-gradient(-45deg, #999, #999 10px, #ccc 10px, #ccc 20px); animation: moveCandy 1s linear infinite; color: #000; font-weight: bold; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: width 0.3s ease;">0%</div>
+        </div>
+        <p id="progressPhraseDocs" style="margin-top: 10px; font-weight: bold; font-size: 15px; color: #000;">
+          💡 Analizando tendencias académicas...
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script para mostrar nombre del archivo -->
+  <script>
+    function mostrarNombreArchivo(event) {
+      const fileInput = event.target;
+      const fileName = fileInput.files[0]?.name || '';
+      document.getElementById('fileNameDisplay').textContent = fileName;
+    }
+  </script>
+  <script src="SCRIPTS/cargadoc.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+  <script src="SCRIPTS/docu.js"></script>
+</div>
+
+    <!-- 📄 Sección de chat kai -->
+<div id="chatPreviewVentas" style="text-align: center; margin-top: 20px;">
+  <div class="chat-section" style="max-width: 830px; margin: 0 auto; padding: 20px; position: relative;">
+    <!-- Botón de cerrar en esquina -->
+    <button onclick="closeChatVentas()" style="position: absolute; top: -10px; right: -10px; background: #fef1f1; border: 1px solid #f3c6c6; color: #c0392b; font-size: 18px; padding: 5px 10px; border-radius: 50%; cursor: pointer; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">✖</button>
+  
+    <!-- Mensajes -->
+    <div id="chatMessages" class="chat-messages" style="min-height: 120px; margin-bottom: 20px;"></div>
+  
+    <!-- Input + Iconos -->
+<div style="display: flex; align-items: center; gap: 10px; border: 1px solid #ddd; border-radius: 12px; padding: 8px 12px; background: #fff;">
+  <textarea id="userInputVentas" class="chat-input" placeholder="Haz tu pregunta a KAI®..." style="flex: 1; border: none; outline: none; font-size: 14px; font-family: 'Inter', sans-serif; resize: none; background: transparent;"></textarea>
+  <button id="btnMicSection" onclick="iniciarVisualizadorYVoz('userInputVentas', 'voiceVisualizerSection', 'btnMicSection')" title="Hablar" style="background: transparent; border: none; font-size: 18px; color: #6c7ae0; cursor: pointer;"><i class="fas fa-microphone"></i></button>
+  <button onclick="askChatGPTVentas()" title="Enviar" style="background: transparent; border: none; font-size: 18px; color: #6c7ae0; cursor: pointer;"><i class="fas fa-paper-plane"></i></button>
+  <button onclick="nuevaConsultaVentas()" title="Nueva consulta" style="background: transparent; border: none; font-size: 18px; color: #e67e22; cursor: pointer;"><i class="fas fa-sync-alt"></i></button>
+</div>
+
+<script>
+  function nuevaConsultaVentas() {
+    document.getElementById("userInputVentas").value = "";
+    document.getElementById("chatMessages").innerHTML = "";
+  }
+</script>
+
+    <!-- Estado de grabación -->
+    <div id="grabandoLabelSection" class="grabando-label" style="display: none; text-align: center; margin-top: 10px; font-weight: bold;">🔊 Grabando...</div>
+    <div id="loadingContainerVentas" style="display:none; text-align:center; margin: 20px auto;">
+      <div style="width: 100%; border-radius: 12px; background-color: #f0f0f0; overflow: hidden; border: 1px solid #000; height: 30px; position: relative;">
+        <div id="barraProgresoKai" style="height: 100%; width: 0%; background-image: repeating-linear-gradient(-45deg,white,white 10px,gray 10px,gray 20px); animation: moveStripes 1s linear infinite; color: #000; font-weight: bold; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: width 0.3s ease;">0%</div>
+      </div>
+      <p id="fraseCargaVentas" style="margin-top: 10px; font-weight: bold; font-size: 15px; color: #000;">🔄 Pensando como humano, procesando como IA...</p>
+    </div>
+  
+    <!-- Visualizador -->
+    <div id="voiceVisualizerSection" style="width: 100%; height: 40px; margin: 30px 0 0; background: linear-gradient(to right, #ccc, #e0e0e0); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: black; font-weight: bold;">🎙️ Visualizador de voz activo...</div>
+  </div>  
+</div>
+    <script src="SCRIPTS/escalera.js"></script>
+    <script src="SCRIPTS/ComportamientoSecciones.js"></script>
+    <script src="SCRIPTS/micro.js"></script>
+    <script src="SCRIPTS/micromobil.js"></script>
+    
+
+<!-- 🎨 Editor de imágenes -->
+<div id="adStrategySectionVentas" style="display: none; text-align: center; margin-top: 30px;">
+  <!-- CONTENEDOR POSICIONADO PARA EL TEXTAREA CON BOTÓN ❌ -->
+  <div style="position: relative; display: inline-block; width: 100%; max-width: 800px;">
+    <textarea id="promptVentasDani" placeholder="Describe la imagen" class="styled-inputg" rows="5"
+      style="width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #000;"></textarea>
+    <button onclick="closeAdStrategySectionVentas()" title="Cerrar"
+      style="position: absolute; top: -12px; right: -12px; background: #ffebeb; border: 1px solid #ff9999; color: #c0392b;
+      font-size: 16px; padding: 4px 8px; border-radius: 50%; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+      ✖
+    </button>
+  </div>
+
+  <!-- BOTONES DE ACCIÓN -->
+  <div class="button-group" style="margin: 20px 0;">
+    <button onclick="generateImageVentasDani()" class="styled-button">Generar</button>
+    <button onclick="document.getElementById('imageContainerVentasDani').innerHTML='';" class="styled-button">Limpiar Imagen</button>
+    <button onclick="toggleEditorVentasDani()" class="styled-button">Abrir Editor Visual</button>
+  </div>
+
+  <!-- CONTENEDOR DE IMAGEN GENERADA -->
+  <div id="imageContainerVentasDani" class="image-container"
+    style="display: none; min-height: 100px; align-items: center; justify-content: center;"></div>
+</div>
+<style>
+  .input-uniforme {
+    width: 100%;
+    padding: 6px 10px;
+    font-size: 14px;
+    height: 36px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    transition: border 0.2s, box-shadow 0.2s;
+  }
+
+  .input-uniforme:hover {
+    border-color: #888;
+  }
+
+  .input-uniforme:focus {
+    outline: none;
+    border-color: #6a5acd;
+    box-shadow: 0 0 5px rgba(106, 90, 205, 0.4);
+  }
+
+  .input-row label {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-weight: bold;
+  }
+
+  .editor-controls {
+    width: 100%;
+    max-width: 650px;
+    background: linear-gradient(to right, #fdfbff, #e3e3ff);
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+</style>
+
+<!-- Editor Visual (sigue oculto por defecto) -->
+<div id="editorContainerVentasDani" style="display: none; text-align: center; margin-top: 30px; flex-direction: column; align-items: center; gap: 25px;">
+  <h2 style="margin: 0;">EDITOR VISUAL RESET®</h2>
+
+  <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+    <style> #editorContainerVentasDani {position: relative; overflow: hidden;}</style>
+    <p id="canvasSizeVentasDani" style="margin: 0; font-weight: bold;">Formato: 800x600</p>
+    <select id="formatSelectVentasDani" class="format input-uniforme" onchange="prepareCanvasVentasDani(this.value)" style="max-width: 220px;">
+      <option value="">Selecciona un formato</option>
+      <option value="800x600">Mail (800x600)</option>
+      <option value="600x600">WhatsApp (600x600)</option>
+      <option value="1080x1920">Stories (1080x1920)</option>
+      <option value="1080x1080">Post Redes (1080x1080)</option>
+    </select>
+  </div>
+
+  <div class="editor-controls">
+
+    <!-- Fila 1: Fondo - Imagen - Filtro -->
+    <div class="input-row" style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
+      <label>Fondo:<input type="file" id="uploadBackgroundVentasDani" class="input-uniforme"></label>
+      <label>Imagen:<input type="file" id="uploadImageVentasDani" class="input-uniforme"></label>
+      <label>Filtro:
+        <select id="filtroVentasSelect" class="input-uniforme" onchange="applyFilterVentas(this.value)">
+          <option value="">🎨 Filtro</option>
+          <option value="grayscale(100%)">Gris</option>
+          <option value="sepia(70%)">Sepia</option>
+          <option value="blur(3px)">Desenfoque</option>
+          <option value="brightness(1.2)">Brillo+</option>
+          <option value="contrast(150%)">Contraste+</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- Fila 2: Texto - Tipografía - Tamaño - Color -->
+    <div class="input-row" style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
+      <input type="text" id="customTextVentasDani" placeholder="Texto..." class="input-uniforme" style="flex: 2;">
+      <select id="fontFamilyVentasDani" class="input-uniforme" style="flex: 1;">
+        <option value="'Anton', sans-serif">Anton</option>
+        <option value="'Poppins', sans-serif">Poppins</option>
+        <option value="'Playfair Display', serif">Playfair</option>
+        <option value="'Roboto', sans-serif">Roboto</option>
+        <option value="'Lobster', cursive">Lobster</option>
+      </select>
+      <select id="fontSizeVentasDani" class="input-uniforme" style="flex: 1;">
+        <option value="12">12px</option>
+        <option value="16" selected>16px</option>
+        <option value="24">24px</option>
+        <option value="36">36px</option>
+        <option value="62">62px</option>
+        <option value="80">80px</option>
+      </select>
+      <input type="color" id="textColorVentasDani" title="Color de texto" style="width: 40px; height: 40px; border: none; cursor: pointer;">
+    </div>
+
+    <!-- Fila 3: Botones -->
+    <div class="input-row" style="display: flex; justify-content: center; gap: 20px;">
+      <button onclick="addTextVentas()">+ Texto</button>
+      <button onclick="clearCanvasVentas()">🧹 Limpiar Canvas</button>
+      <button onclick="downloadImageVentas()">Descargar</button>
+    </div>
+  </div>
+
+  <!-- Lienzo -->
+  <div id="editorVentasDani" class="canvas-editor" style="margin-top: 30px;"></div>
+</div>
+
+<script>
+
+  function closeAdStrategySectionVentas() {
+  document.getElementById("adStrategySectionVentas").style.display = "none";
+  ocultarEditorVentasDani(); // Asegura que el editor se cierre al cerrar esta sección
+}
+
+  function clearCanvasVentas() {
+    const canvas = document.querySelector('#editorVentasDani canvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    } else {
+      alert('No hay canvas activo para limpiar.');
+    }
+  }
+
+  function ocultarEditorVentasDani() {
+  const editor = document.getElementById('editorContainerVentasDani');
+  if (editor) {
+    editor.style.display = 'none';
+  }
+}
+</script>
+
+</div>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Lobster&family=Poppins&family=Playfair+Display&family=Roboto&display=swap" rel="stylesheet">
+<script>function closeAdStrategySectionVentas() {document.getElementById("adStrategySectionVentas").style.display = "none";}</script>
+<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="SCRIPTS/ventasdani.js"></script>
+<script src="SCRIPTS/editordani.js"></script>
+
+<!-- SECCIÓN DE NOTICIAS EDUCATIVAS KAI® -->
+<div id="formacion-inteligente" class="section py-10 px-6 bg-[#f7f7f5] font-serif">
+
+  <title>Periódico Digital</title>
+  <style>
+    :root {
+      --color-bg: white;
+      --color-text: #6b7280;
+      --color-heading: #111827;
+      --color-primary: #000000;
+      --shadow-light: rgba(0, 0, 0, 0.05);
+      --radius: 0.75rem;
+      --font-sans: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Reset & base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+    a:hover,
+    a:focus {
+      color: #1f2937; /* darker shade */
+      outline: none;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color:linear-gradient(135deg, #f5dce5, #d4e6f1, #eec3ce);
+      letter-spacing: 0.05em;
+    }   
+
+    /* Main Content - News grid */
+    main {
+      flex-grow: 1;
+      padding: 3rem 1rem 4rem;
+      background-color: var(--color-bg);
+    }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .news-card {
+      background: #ffffff;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 10px var(--shadow-light);
+      padding: 1.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .news-card:hover,
+    .news-card:focus-within {
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transform: translateY(-4px);
+      outline: none;
+    }
+    .news-card h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 0 0 0.75rem;
+      color: var(--color-primary);
+    }
+    .news-card p {
+      flex-grow: 1;
+      color: var(--color-text);
+      font-size: 1rem;
+      margin: 0 0 1.25rem;
+    }
+    .news-card a.button-link {
+      font-weight: 600;
+      font-size: 1rem;
+      text-align: center;
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      padding: 0.5rem 1.5rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      user-select: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .news-card a.button-link:hover,
+    .news-card a.button-link:focus {
+      background-color: #1f2937;
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 1rem;
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--color-text);
+      border-top: 1px solid #e5e7eb;
+      background-color: var(--color-bg);
+    }
+
+  .hero {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  margin-top: -25px;
+}
+
+.hero img {
+  width: 100%;
+  max-width: 800px; /* Puedes ajustar esto a 1000px o más si quieres */
+  height: auto;
+  object-fit: contain;
+  border-radius: 0.75rem;
+  display: block;
+}
+
+/* Responsive styles */
+
+/* iPhones y móviles pequeños */
+@media (max-width: 480px) {
+  .news-card {
+    padding: 1rem;
+  }
+  .news-card h2 {
+    font-size: 1.25rem;
+  }
+  .news-card p {
+    font-size: 0.95rem;
+  }
+  .news-card a.button-link {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+  .hero img {
+    max-width: 100%;
+  }
+  main {
+    padding: 2rem 0.75rem;
+  }
+}
+
+/* Teléfonos grandes y tabletas en vertical */
+@media (min-width: 481px) and (max-width: 768px) {
+  .news-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .news-card h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Tabletas horizontales y pantallas medianas */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .news-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  .news-card h2 {
+    font-size: 1.6rem;
+  }
+}
+
+/* Pantallas grandes (Full HD) */
+@media (min-width: 1025px) and (max-width: 1920px) {
+  .news-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+  .hero img {
+    max-width: 1000px;
+  }
+}
+
+/* Pantallas ultra anchas (2K, 4K) */
+@media (min-width: 1921px) {
+  .container, .news-grid {
+    max-width: 1600px;
+  }
+  .news-card {
+    padding: 2rem 2.5rem;
+  }
+  .news-card h2 {
+    font-size: 2rem;
+  }
+  .hero img {
+    max-width: 1200px;
+  }
+}
+
+  </style>
+
+<section class="hero" role="banner" aria-label="Sección de imagen destacada">
+  <img src="IMAGENES/Cover-Revista.png" alt="Portada destacada del periódico digital">
+</section>
+  <main id="news" class="container" role="main">
+    <div class="news-grid" aria-label="Sección de noticias digitales">
+
+  <article class="news-card" tabindex="0">
+  <img src="IMAGENES/cinco.jpeg" alt="Portada EL PAÍS" style="width:100%; border-radius: 0.5rem; margin-bottom: 1rem;">
+  <h2>Cinco Días (El País)</h2>
+  <p>Este medio económico ofrece una cobertura constante sobre innovación educativa, inteligencia artificial aplicada a la empresa, digitalización y sostenibilidad. Publica artículos y análisis actualizados diariamente, incluyendo entrevistas con líderes del sector y reportajes sobre iniciativas tecnológicas..</p>
+  <a href=" https://cincodias.elpais.com/" class="button-link" target="_blank" rel="noopener noreferrer">Visitar</a>
+</article>
+
+<article class="news-card" tabindex="0">
+  <img src="IMAGENES/ser.jpeg" alt="Portada EL MUNDO" style="width:100%; border-radius: 0.5rem; margin-bottom: 1rem;">
+  <h2>Cadena SER – Tecnología y Economía</h2>
+  <p>Cadena SER publica noticias diarias sobre transformación digital, IA, educación y cultura, incluyendo eventos como el Foro CREO 2025 y programas de apoyo a pymes. Su cobertura incluye tanto noticias nacionales como internacionales, con un enfoque en la innovación y el impacto social de la tecnología.</p>
+  <a href="https://cadenaser.com/" class="button-link" target="_blank" rel="noopener noreferrer">Visitar</a>
+</article>
+
+<article class="news-card" tabindex="0">
+  <img src="IMAGENES/pais.jpeg" alt="Portada elDiario.es" style="width:100%; border-radius: 0.5rem; margin-bottom: 1rem;">
+  <h2> El País – Sección Tecnología</h2>
+  <p>El País ofrece una amplia cobertura sobre tecnología, incluyendo artículos sobre innovación educativa y el impacto de la IA en la sociedad. Sus reportajes profundizan en cómo la digitalización está transformando diversos sectores, desde la educación hasta la industria.</p>
+  <a href="https://elpais.com/tecnologia/" class="button-link" target="_blank" rel="noopener noreferrer">Visitar</a>
+</article>
+
+ <article class="news-card" tabindex="0">
+  <img src="IMAGENES/sapiencia.jpeg" alt="Portada EL PAÍS" style="width:100%; border-radius: 0.5rem; margin-bottom: 1rem;">
+  </article>
+
+    </div>
+  </main>
+
+  <footer id="about" role="contentinfo">
+    <div class="container">
+      <p>RESET© 2025 Periódico Digital. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</div>
+
+
+<!-- SECCIÓN DE IA neuro--> 
+<style>
+.seccion-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin: 40px 0;
+  gap: 20px;
+}
+
+.seccion-flex.reverse {
+  flex-direction: row-reverse;
+}
+</style>
+
+<div id="ia-neuroliderazgo" class="section" style="padding: 40px; font-family: 'Segoe UI', sans-serif; background-color: #f9f9fc;">
+    <h2> Especialidad en IA & Neuroliderazgo</h2>
+<!-- Botón de acceso al aula virtual -->
+<div style="display: flex; justify-content: center; margin-top: 50px; margin-bottom: 40px;">
+  <button class="boton-aula-ia" onclick="abrirLogin()">
+    <i class="fas fa-robot" style="margin-right: 8px;"></i> ✦ Acceder al Aula Virtual
+  </button>
+</div>
+
+<!-- Visualizador de PDF a pantalla casi completa -->
+<div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+  <iframe 
+    src="IMAGENES/Especializacion-IANeuroliderazgoUAHM-RESET.pdf" 
+    style="width: 100%; max-width: 1200px; height: 700px; border: none; border-radius: 16px; box-shadow: 0 0 20px rgba(0,0,0,0.12);">
+  </iframe>
+</div>
+
+
+</div>
+
+<style>
+  .boton-aula {background-color:#7c7c7c;color: #fff;padding: 14px 28px;border-radius: 10px;font-size: 16px;text-decoration: none;font-weight: bold;display: inline-flex;align-items: center;gap: 10px;transition: background-color 0.3s ease, transform 0.2s ease;cursor: pointer;}
+  .boton-aula:hover {background-color: #7c7c7c  ;transform: scale(1.03);}
+  .login-modal {display: none;position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);background: #f5faff;padding: 30px 20px;box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);border-radius: 20px;z-index: 999;text-align: center;width: 90%;max-width: 360px;font-family: 'Inter', sans-serif;}
+  .login-modal input {width: 90%;padding: 10px;margin: 10px 0;border-radius: 10px;border: 1.5px solid #d0e5fa;background-color: #ffffff;font-size: 15px;transition: border-color 0.3s ease, box-shadow 0.3s ease;}
+  .login-modal input:focus {border-color: #2a6ec9;box-shadow: 0 0 6px rgba(42, 110, 201, 0.3);outline: none;}
+  .login-modal button {background-color: #edf6ff;color: #2a6ec9;border: 1.5px solid #c6e2fa;padding: 10px 20px;border-radius: 12px;margin-top: 12px;font-weight: 500;font-size: 14px;cursor: pointer;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);transition: all 0.2s ease-in-out;}
+  .login-modal button:hover {background-color: #e1f0ff;border-color: #a9d1fa;}
+  .login-modal .error {color: red;font-size: 14px;margin-top: 5px;}
+  .modal-overlay {display: none;position: fixed;inset: 0;background: rgba(0, 0, 0, 0.5);z-index: 998;}
+  .bienvenida-personalizada {text-align: center;margin-top: 40px;font-size: 20px;font-weight: bold;color: #333;animation: fadeIn 1s ease-in-out;}
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<style>
+  .boton-aula-ia {
+  background: linear-gradient(135deg, #43cea2, #185a9d); /* AI-inspired */
+  color: white;
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(80, 220, 255, 0.4);
+  transition: all 0.3s ease;
+  text-align: center;
+  text-shadow: 0 0 5px rgba(0,0,0,0.2);
+  max-width: 100%;
+  width: fit-content;
+}
+
+/* Hover animado */
+.boton-aula-ia:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(80, 220, 255, 0.7);
+  background: linear-gradient(135deg, #6dd5ed, #2193b0);
+}
+
+/* Responsivo para tabletas y pantallas medianas */
+@media (max-width: 1024px) {
+  .boton-aula-ia {
+    font-size: 15px;
+    padding: 12px 28px;
+  }
+}
+
+/* Responsivo para celulares */
+@media (max-width: 600px) {
+  .boton-aula-ia {
+    font-size: 14px;
+    padding: 10px 24px;
+    width: 100%;
+    border-radius: 20px;
+  }
+}
+
+/* Ultra resolución (4K o pantallas grandes) */
+@media (min-width: 1920px) {
+  .boton-aula-ia {
+    font-size: 18px;
+    padding: 16px 40px;
+  }
+}
+</style>
+
+<div class="modal-overlay" id="overlay" onclick="cerrarLogin()"></div>
+<div class="login-modal" id="loginFlotante"><h3>Inicia sesión</h3><input type="text" id="usuario" placeholder="Usuario" /><input type="password" id="contrasena" placeholder="Contraseña" /><button onclick="validarLogin()"> ✦Entrar</button><div class="error" id="mensajeError"></div></div>
+<div id="mensajeBienvenidalogin" class="bienvenida-personalizadalogin" style="display: none;"></div><script src="SCRIPTS/loginaula.js"></script></div>
+</div>
+
+<div id="chat-container1" class="chat-container1">
+    <iframe 
+        src="https://studio.d-id.com/agents/share?id=agt_8LlMaU4m&utm_source=copy&key=WVhWMGFEQjhOamRpWlRFeVpURXhOekEyTVRZMU0yVTVaV1EwWW1VMk9rMDNOREJHYkhGVFUxaEVhMUEyU0Rjd1VsUlZOQT09" 
+        allow="microphone; camera; autoplay; encrypted-media"
+        allowfullscreen>
+    </iframe>
+</div>
+<button id="chat-toggle1" class="chat-button1"><img src="IMAGENES/Kai.jpeg" alt="Chatbot Avatar"></button>
+<script src="SCRIPTS/OcultarMostrarChatBot.js"></script>
+
+<!-- MENSAJE DE BIENVENIDA -->
+<div id="fondoDifuminado" class="fondo-blur"></div>
+<div id="mensajeBienvenidaKai" class="mensaje-unificado">
+  <div class="contenido-mensaje">
+    <button class="cerrar-mensaje" onclick="cerrarTodo()">✖</button>
+<img src="IMAGENES/ClarityDocente.gif" alt="Avatar Kai"
+  style="width: 100px; height: auto; border-radius: 50%; box-shadow: 0 0 20px #ff0000;">
+<style>
+  .carrusel-modal {
+    text-align: center;
+    padding: 1rem 1.2rem;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, #edf2f7, #fdf4ff);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    max-width: 1080px;
+    margin: auto;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .slide-content {
+    display: none;
+    transition: opacity 0.4s ease;
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: #1f2937;
+    padding: 1rem 1rem;
+    border-radius: 1rem;
+    background-color: #ffffffcc;
+    backdrop-filter: blur(8px);
+    text-align: justify;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .slide-content.active {
+    display: block;
+  }
+
+  .slide-content p,
+  .slide-content ul,
+  .slide-content ol {
+    margin-bottom: 0.9rem;
+  }
+
+  .emoji {
+    font-size: 1.2rem;
+    margin-right: 0.3rem;
+  }
+</style>
+
+<div class="carrusel-modal">
+  <h2 style="margin-bottom: 1rem;">¡Bienvenido/a al Campus Virtual 🎓</h2>
+
+  <div id="slide1" class="slide-content active">
+    <p>Somos el primer sistema de formación académica impulsado por IA pensado para que apliques lo aprendido desde el primer día. La plataforma se adapta a tu realidad: ya sea que explores una idea de negocio, hagas crecer tu empresa o impulses tu carrera profesional.</p>
+  </div>
+</div>
+
+<script>
+  let currentSlideIndex = 1;
+  const totalSlides = 3;
+
+  function showSlide(index) {
+    for (let i = 1; i <= totalSlides; i++) {
+      document.getElementById("slide" + i).classList.remove("active");
+    }
+    document.getElementById("slide" + index).classList.add("active");
+  }
+
+  function changeSlide(direction) {
+    currentSlideIndex += direction;
+    if (currentSlideIndex < 1) currentSlideIndex = 1;
+    if (currentSlideIndex > totalSlides) currentSlideIndex = totalSlides;
+    showSlide(currentSlideIndex);
+  }
+</script>
+
+  </div>
+</div>
+
+<style>
+/* Fondo nublado */
+.fondo-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  display: block;
+}
+
+/* Contenedor del mensaje */
+.mensaje-unificado {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #f5dce5, #d4e6f1, #eec3ce);
+  color: #000;
+  border: 1px solid #3a3a5a;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  padding: 40px 30px;
+  max-width: 500px;
+  width: 90%;
+  z-index: 1000;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.contenido-mensaje {
+  position: relative;
+}
+
+.mensaje-unificado .avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  margin-left: 20px; /* <- Ajusta este valor según necesites */
+  border: 2px solid red;
+  box-shadow: 0 0 15px red;
+}
+
+.mensaje-unificado h2 {
+  font-size: 22px;
+  color: #000;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.mensaje-unificado p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.mensaje-unificado .cerrar-mensaje {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: linear-gradient(135deg, #e6ecf7, #333);
+  border: none;
+  color: black;
+  font-size: 18px;
+  padding: 6px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 10px red;
+  transition: background 0.2s ease;
+}
+
+.mensaje-unificado .cerrar-mensaje:hover {
+  background: #333;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+</style>
+
+<script>
+function cerrarTodo() {
+  document.getElementById('mensajeBienvenidaKai').style.display = 'none';
+  document.getElementById('fondoDifuminado').style.display = 'none';
+}
+</script>
+
+</body>
+</html>  
