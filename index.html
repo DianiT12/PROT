@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RESET® | Artesanos de la Inteligencia Humana</title>
+
+  <link rel="shortcut icon" href="IMAGENES/ICONO.png" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #e6ecf7, #b773df44);
+      color: black;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      flex-direction: row;
+    }
+
+    .video-side {
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: url('IMAGENES/fondo_intergalactico.jpg') no-repeat center center;
+      background-size: cover;
+      padding: 20px;
+    }
+
+    .select-country {
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      color: black;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+      z-index: 2;
+    }
+
+    .flags {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 10px;
+      z-index: 2;
+      text-align: center;
+      justify-items: center;
+    }
+
+    .flags img {
+      height: 100px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .flags img:hover {
+      transform: scale(1.2);
+    }
+
+    .flag-label {
+      color: black;
+      font-size: 18px;
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    #overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 998;
+      display: none;
+    }
+
+    #contenedorBienvenida {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      z-index: 999;
+      animation: zoomIn 0.6s ease-out;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8) translate(-50%, -50%); opacity: 0; }
+      to { transform: scale(1) translate(-50%, -50%); opacity: 1; }
+    }
+
+    #animalito {
+      width: 280px;
+      height: auto;
+      animation: float 3s ease-in-out infinite, pulse 4s ease-in-out infinite, glow 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    @keyframes glow {
+      0%, 100% { filter: drop-shadow(0 0 3px white); }
+      50% { filter: drop-shadow(0 0 8px white); }
+    }
+
+    .popup-bienvenida {
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 20px 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      text-align: center;
+      font-size: 18px;
+      max-width: 320px;
+    }
+
+    .login-side {
+      flex: 1;
+      background-image: url('IMAGENES/FONDO_LogIn.png');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .logo {
+      width: 270px;
+      margin-bottom: 20px;
+    }
+
+    .login-container {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 10px;
+      width: 320px;
+      text-align: center;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.9);
+      color: black;
+    }
+
+    .button {
+      margin-top: 20px;
+      padding: 12px;
+      font-size: 18px;
+      background-color: #e53611;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .button:hover {
+      background-color: rgb(2, 0, 12);
+    }
+
+    /* MODAL VIDEO */
+    #modalVideo {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .video-container {
+      position: relative;
+      max-width: 800px;
+      width: 90%;
+      background: black;
+      border-radius: 10px;
+      overflow: hidden;
+      padding-bottom: 10px;
+      margin-top: 10px;
+    }
+
+    #videoBienvenida {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .cerrar-video {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .demo-calendly {
+      display: block;
+      margin: 20px auto 0;
+      padding: 12px 25px;
+      background: #e53611;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .video-side, .login-side {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .flags {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      #animalito {
+        width: 200px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .flags {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .popup-bienvenida {
+        font-size: 16px;
+        max-width: 90%;
+      }
+
+      .login-container {
+        padding: 20px;
+      }
+
+      .button {
+        font-size: 16px;
+      }
+
+      .demo-calendly {
+        font-size: 14px;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="video-side">
+      <div id="overlay"></div>
+
+      <div class="select-country">Escoge tu país</div>
+      <div class="flags">
+        <!-- Tus banderas aquí -->
+        <div><img src="IMAGENES/banderaecuador.png" alt="Ecuador" onclick="showWelcome('ecuador')"><div class="flag-label">Ecuador</div></div>
+        <div><img src="IMAGENES/banderacolombia.png" alt="Colombia" onclick="showWelcome('colombia')"><div class="flag-label">Colombia</div></div>
+        <div><img src="IMAGENES/banderamexico.png" alt="México" onclick="showWelcome('mexico')"><div class="flag-label">México</div></div>
+        <div><img src="IMAGENES/banderapanama.png" alt="Panamá" onclick="showWelcome('panama')"><div class="flag-label">Panamá</div></div>
+        <div><img src="IMAGENES/banderaargentina.png" alt="Argentina" onclick="showWelcome('argentina')"><div class="flag-label">Argentina</div></div>
+        <div><img src="IMAGENES/banderavenezuela.png" alt="Venezuela" onclick="showWelcome('venezuela')"><div class="flag-label">Venezuela</div></div>
+        <div><img src="IMAGENES/banderarepublica.png" alt="República Dominicana" onclick="showWelcome('republica')"><div class="flag-label">R.Dominicana</div></div>
+        <div><img src="IMAGENES/banderachile.png" alt="Chile" onclick="showWelcome('chile')"><div class="flag-label">Chile</div></div>
+        <div><img src="IMAGENES/banderaperu.png" alt="Perú" onclick="showWelcome('peru')"><div class="flag-label">Perú</div></div>
+      </div>
+
+      <div id="contenedorBienvenida">
+        <img id="animalito" src="" alt="Animalito de bienvenida">
+        <div id="popupBienvenida" class="popup-bienvenida"></div>
+        <audio id="audioBienvenida" preload="auto"></audio>
+      </div>
+    </div>
+
+    <div class="login-side">
+      <img src="IMAGENES/Logos_reset-uahmBlanco.png" class="logo">
+      <img src="IMAGENES/LogoAI-SmartEducation.png" class="logo">
+      <div class="login-container">
+        <form onsubmit="return validateLogin()">
+          <input type="text" id="username" placeholder="Usuario" required>
+          <input type="password" id="password" placeholder="Contraseña" required>
+          <button type="submit" class="button">Ingresar</button>
+        </form>
+        <br>
+        <img src="IMAGENES/Artesanos-_-AI-Agents-ByReset-blanco.png" alt="Smart IA" style="height: 40px;">
+      </div>
+    </div>
+  </div>
+
+<!-- MODAL VIDEO -->
+<div id="modalVideo" class="modal-video">
+  <div class="video-container" style="width: 90%; max-width: 800px; background: black; border-radius: 10px; overflow: hidden; padding-bottom: 20px;">
+    <button class="cerrar-video" onclick="cerrarVideo()" style="position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.3); border: none; color: white; font-size: 22px; cursor: pointer; z-index: 10;">✖</button>
+
+    <video id="videoBienvenida" controls style="width: 100%; height: 400px; display: block;">
+      <source src="IMAGENES/que es reset.MP4" type="video/mp4">
+      Tu navegador no soporta el video.
+    </video>
+
+    <button class="demo-calendly" onclick="mostrarCalendly()" style="margin: 20px auto 0; padding: 12px 25px; background: #e53611; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer;">📅 Solicita tu Demo</button>
+
+    <div id="contenedorCalendly" style="display: none; width: 100%; padding: 20px; position: relative;">
+  <!-- Botón de cerrar en la esquina superior derecha -->
+  <button class="cerrarCalendly" onclick="cerrarCalendly()" style="
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #f70505;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+  ">✖</button>
+
+  <!-- Calendly embebido -->
+  <div class="calendly-inline-widget" data-url="https://calendly.com/esteban-resetfirm?hide_landing_page_details=1&hide_gdpr_banner=1" style="min-width:320px;height:700px;"></div>
+</div>
+
+  </div>
+</div>
+
+<!-- Calendly Script -->
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+<script>
+  // Asegurar estado limpio al cargar
+  window.onload = function () {
+    document.getElementById('modalVideo').style.display = 'none';
+    document.getElementById('contenedorCalendly').style.display = 'none';
+    const video = document.getElementById('videoBienvenida');
+  
+  };
+
+  function validateLogin() {
+    var username = document.getElementById('username').value.trim();
+    var password = document.getElementById('password').value.trim();
+
+    var users = {
+      "Esteban": "esteban123",
+      "Estefy": "estefy123",
+      "Eli": "eli123",
+      "Daniel": "CancillerIA"
+    };
+
+    if (users[username] && users[username] === password) {
+      localStorage.setItem("usuarioActivo", username);
+      window.location.href = "SMART.html";
+      return false;
+    } else {
+      alert("Usuario o contraseña incorrectos");
+      return false;
+    }
+  }
+
+  function showWelcome(country) {
+    const animalito = document.getElementById('animalito');
+    const popup = document.getElementById('popupBienvenida');
+    const contenedor = document.getElementById('contenedorBienvenida');
+    const overlay = document.getElementById('overlay');
+    const audio = document.getElementById('audioBienvenida');
+
+    const datosPais = {
+      'ecuador': { gif: 'IMAGENES/EC.png', mensaje: `<strong>¡Bienvenido a Ecuador!</strong><br>AI Smart Education llega a transformar la educación y el talento digital ecuatoriano.<br>✨ <em>¡Prepárate para evolucionar!</em>` },
+      'colombia': { gif: 'IMAGENES/CO.png', mensaje: `<strong>¡Hola Colombia!</strong><br>Juntos impulsamos una nueva era educativa con IA, propósito y creatividad.<br>🚀 <em>¡Bienvenido al cambio!</em>` },
+      'mexico': { gif: 'IMAGENES/MX.png', mensaje: `<strong>¡Bienvenido a México!</strong><br>La revolución educativa con IA y neurociencia ha comenzado.<br>🔥 <em>¡Vamos con todo, Artesano!</em>` },
+      'panama': { gif: 'IMAGENES/PANAMA.png', mensaje: `<strong>¡Hola Panamá!</strong><br>Juntos impulsamos una nueva era educativa con IA, propósito y creatividad.<br>🚀 <em>¡Bienvenido al cambio!</em>` },
+      'argentina': { gif: 'IMAGENES/argentina.png', mensaje: `<strong>¡Bienvenida Argentina!</strong><br>IA y creatividad se unen para transformar la educación.<br>🇦🇷 <em>¡Revolucionemos el aprendizaje juntos!</em>` },
+      'venezuela': { gif: 'IMAGENES/venezuela.png', mensaje: `<strong>¡Saludos Venezuela!</strong><br>Más inclusión, más propósito, más innovación.<br>🧠 <em>¡El futuro comienza contigo!</em>` },
+      'republica': { gif: 'IMAGENES/republica.png', mensaje: `<strong>¡Hola República Dominicana!</strong><br>Impulsamos talentos caribeños con IA.<br>🌴 <em>¡Tu isla, tu revolución educativa!</em>` },
+      'chile': { gif: 'IMAGENES/chile.png', mensaje: `<strong>¡Bienvenido Chile!</strong><br>Conectamos innovación, datos y humanidad.<br>🧠 <em>¡Súmate a esta transformación!</em>` },
+      'peru': { gif: 'IMAGENES/animalperu.png', mensaje: `<strong>¡Bienvenido Perú!</strong><br>Unimos tradición y tecnología para educar.<br>🇵🇪 <em>¡Sé parte del cambio con propósito!</em>` }
+    };
+
+    const datos = datosPais[country];
+    if (!datos) return;
+
+    // Ocultar flags y texto
+    const flags = document.querySelector('.flags');
+    const selectText = document.querySelector('.select-country');
+    if (flags) flags.style.display = 'none';
+    if (selectText) selectText.style.display = 'none';
+
+    // Mostrar overlay y mensaje
+    animalito.src = datos.gif;
+    popup.innerHTML = datos.mensaje;
+    contenedor.style.display = 'flex';
+    overlay.style.display = 'block';
+
+    // Espera y muestra video
+    setTimeout(() => {
+      contenedor.style.display = 'none';
+      overlay.style.display = 'none';
+      mostrarVideo();
+    }, 6000);
+  }
+
+  function mostrarVideo() {
+    const modal = document.getElementById('modalVideo');
+    const video = document.getElementById('videoBienvenida');
+    modal.style.display = 'flex';
+    if (video) {
+      video.currentTime = 0;
+      video.play();
+    }
+  }
+
+  function cerrarVideo() {
+    const modal = document.getElementById('modalVideo');
+    const video = document.getElementById('videoBienvenida');
+    const calendario = document.getElementById('contenedorCalendly');
+    const btnCerrarCalendly = document.getElementById('cerrarCalendly');
+
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+
+    modal.style.display = 'none';
+    if (calendario) calendario.style.display = 'none';
+    if (btnCerrarCalendly) btnCerrarCalendly.style.display = 'none';
+
+    // Restaurar flags
+    const flags = document.querySelector('.flags');
+    const selectText = document.querySelector('.select-country');
+    if (flags) flags.style.display = 'grid';
+    if (selectText) selectText.style.display = 'block';
+  }
+
+  function mostrarCalendly() {
+    const calendario = document.getElementById('contenedorCalendly');
+    const btnCerrar = document.getElementById('cerrarCalendly');
+
+    if (calendario) {
+      calendario.style.display = 'block';
+      setTimeout(() => {
+        calendario.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    }
+
+    if (btnCerrar) {
+      btnCerrar.style.display = 'inline-block';
+    }
+  }
+
+  function cerrarCalendly() {
+    const calendario = document.getElementById('contenedorCalendly');
+    if (calendario) {
+      calendario.style.display = 'none';
+    }
+  }
+</script>
+
+</body>
+</html>
