@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
 
   <style>
-    * { margin: 0; padding: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Arial', sans-serif;
@@ -123,6 +123,11 @@
         animation: zoomIn 0.6s ease-out;
         pointer-events: none;
         background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .container.reducido {
+        height: auto;
+        min-height: 100vh;
       }
 
     }
@@ -453,8 +458,10 @@
     // Ocultar flags y texto
     const flags = document.querySelector('.flags');
     const selectText = document.querySelector('.select-country');
+    const container = document.querySelector('.container'); // nuevo
     if (flags) flags.style.display = 'none';
     if (selectText) selectText.style.display = 'none';
+    if (container) container.classList.add('reducido'); // nuevo
 
     // Mostrar overlay y mensaje
     animalito.src = datos.gif;
