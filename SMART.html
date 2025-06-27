@@ -38,7 +38,7 @@
     padding: 10px 20px;
     color: white;
     width: 100%;
-    position: fixed;
+    position: relative;
     top: 10px;
     left: 0;
     z-index: 1;
@@ -95,6 +95,20 @@
 .fecha-hora-ecuador::before {
   content: "🕒";
   font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .fecha-hora-ecuador {
+    position: relative;
+    top: 10px; /* o el valor que quieras */
+    max-width: 80%;
+    font-size: 11px;
+  }
+
+  .fecha-hora-ecuador::before {
+    content: "🕒";
+    font-size: 11px;
+  }
 }
 
 @keyframes fadeIn {
@@ -587,7 +601,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     <!-- SECCIÓN DE VENTAS-->
 <div id="ventas-comercial" class="section">
-  <h2 id="saludoUsuario" style="font-weight: 400; font-size: 32px; color: #1a1a1a; font-family: 'Segoe UI', sans-serif;"></h2>
+  <h2 id="saludoUsuario" style="position: relative; top: -20px; font-weight: 400; font-size: 32px; color: #1a1a1a; font-family: 'Segoe UI', sans-serif;"></h2>
 
   <script>
     let nombreUsuario = localStorage.getItem("usuarioActivo") || "Usuario";
