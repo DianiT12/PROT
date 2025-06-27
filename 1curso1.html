@@ -80,19 +80,23 @@
 /* Estilo responsivo para móviles */
 @media (max-width: 768px) {
   header {
-    flex-direction: column;
     align-items: center;
     text-align: center;
+    justify-content: space-between; /* Esto reparte los elementos */
     gap: 10px;
   }
 
   header h1 {
-    font-size: 18px;
-    order: 1;
+    flex: 1;
+    font-size: 12px;
+  }
+
+  #imagen11 {
+    display: none;
   }
 
   header img {
-    height: 40px;
+    height: 20px;
   }
 }
 
@@ -511,7 +515,7 @@
 </head>
 <body>
   <header>
-    <img src="IMAGENES/LogoReset.png" alt="Logo Reset"><h1 style="color: white;">Módulo 1: Neuroliderazgo & IA</h1>
+    <img src="IMAGENES/LogoReset.png" id="imagen11" alt="Logo Reset"><h1 style="color: white;">Módulo 1: Neuroliderazgo & IA</h1>
     <img src="IMAGENES/LOGO-UAHM-blanco.png" alt="Logo UAHM">
   </header>
 
