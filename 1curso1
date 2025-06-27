@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neuroliderazgo & IA</title>
+  <link rel="icon" href="IMAGENES/LOGO-UAHM-rojo.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.querySelector('nav.sidebar');
+      sidebar.classList.toggle('open');
+    }
+  
+    // Ocultar el menú cuando se selecciona una opción (solo en móvil)
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        const sidebar = document.querySelector('nav.sidebar');
+        if (window.innerWidth <= 600) {
+          sidebar.classList.remove('open');
+        }
+      });
+    });
+  </script>
+  
+  
+  <style>
+    .menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 26px;
+  color: black;
+  cursor: pointer;
+}
+    :root {
+      --primary: #f1f1f1;
+      --secondary: white;
+      --text: #202124;
+      --bg: #ffffff;
+      --gray: #dadce0;
+      --header-bg: #e2504c;
+      --shadow: 0 1px 3px rgba(60,64,67,.15), 0 4px 8px rgba(60,64,67,.15);
+    }
+  
+    * {
+      
+      margin: 0;
+      padding: 0;
+    }
+  
+    body {
+      background: var(--secondary);
+      font-family: 'Google Sans', 'Poppins', sans-serif;
+      color: var(--text);
+    }
+  
+    header {
+      background: var(--header-bg);
+      color: var(--text);
+      box-shadow: var(--shadow);
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  
+    header img {
+      height: 45px;
+    }
+  
+    header h1 {
+      font-size: 20px;
+      font-weight: 600;
+    }
+  
+/* Estilo responsivo para móviles */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+
+  header h1 {
+    font-size: 18px;
+    order: 1;
+  }
+
+  header img {
+    height: 40px;
+  }
+}
+
+    .main-container {
+      display: flex;
+    }
+  
+    nav.sidebar {
+      background: #f1f1f1;
+      color: var(--text);
+      width: 240px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-right: 1px solid var(--gray);
+      box-shadow: var(--shadow);
+    }
+  
+    nav.sidebar h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+  
+    nav.sidebar a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+  
+    nav.sidebar a:hover,
+    nav.sidebar a.active {
+      background: var(--primary);
+      color: #fff;
+    }
+  
+    .content {
+      flex-grow: 1;
+      padding: 40px;
+      background: var(--secondary);
+      overflow-y: auto;
+    }
+  
+    .section {
+      display: none;
+      background: var(--bg);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      max-width: 900px;
+      margin: auto;
+    }
+  
+    .section.active { display: block !important; animation: fadeIn 0.5s ease-in-out;
+    }
+  
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  
+    h2, h3 {
+      color: var(--text);
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+  
+    p {
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+  
+    button,
+    .btn {
+      background: var(--primary);
+      color: black;
+      border: none;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+  
+    button:hover,
+    .btn:hover {
+      background: #fd0a0a93;
+    }
+  
+    input, textarea, select {
+      border: 1px solid var(--gray);
+      border-radius: 6px;
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+  
+    .docente-card {
+      background: #f1f3f4;
+      border-left: 5px solid var(--primary);
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+  
+    .docente-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  
+    .docente-info h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+  
+    .docente-info p {
+      margin: 2px 0;
+      font-size: 14px;
+    }
+  
+    .chat-button1 {
+      background-color: var(--primary);
+      border-radius: 100px;
+      box-shadow: var(--shadow);
+    }
+  
+    .chat-button1 img {
+      border: 3px solid #fff;
+    }
+  
+    .chat-container1 {
+      border: 1px solid var(--gray);
+      box-shadow: var(--shadow);
+      background: var(--bg);
+    }
+  
+    table.grades {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+  
+    table.grades th {
+      background: var(--secondary);
+      color: var(--text);
+      font-weight: 600;
+    }
+  
+    table.grades td, table.grades th {
+      border: 1px solid var(--gray);
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    #calendarioEst {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                gap: 6px;
+                margin-top: 10px;
+              }
+          
+              #calendarioEst div {
+                background: #fff;
+                border: 1px solid #eee;
+                border-radius: 8px;
+                min-height: 80px;
+                padding: 8px;
+                font-size: 14px;
+                box-sizing: border-box;
+                text-align: left;
+                position: relative;
+              }
+
+              .calendario-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+              }
+          
+              .calendario-title {
+                font-size: 24px;
+              }
+          
+              .calendario-nav {
+                color: #1565c0;
+                cursor: pointer;
+                font-size: 20px;
+                padding: 0 10px;
+              }
+          
+              .semana {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                font-weight: bold;
+                background-color: #f9f9f9;
+                padding: 8px 0;
+                border-radius: 6px;
+                font-size: 14px;
+              }
+          
+              .semana div {
+                border-right: 1px dotted #ccc;
+                text-align: center;
+              }
+          
+              .semana div:last-child {
+                border-right: none;
+              }
+          
+              .hoy-est {
+                background-color: #e0f7fa !important;
+                border: 2px solid #0097a7 !important;
+              }
+
+              .btn-foro {
+      padding: 6px 14px;
+      background: #e0e0e0;
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s ease;
+    }
+  
+    .btn-foro:hover {
+      background: #d5d5d5;
+    }
+  
+    .btn-danger {
+      background: #f9dede;
+      color: #b71c1c;
+      border-color: #e57373;
+    }
+  
+    .btn-danger:hover {
+      background: #f44336;
+      color: white;
+    }
+  
+    @keyframes slideFade {
+      0% {opacity: 0; transform: translateY(-8px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+/* 🌐 MEDIA QUERIES PARA RESPONSIVE DESIGN */
+
+/* Celulares (hasta 600px) */
+@media (max-width: 700px) {
+    @media (max-width: 700px) {
+  .menu-toggle {
+    display: block;
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    z-index: 1001;
+    background: #e2504c;
+    padding: 6px 12px;
+    border-radius: 60px;
+    font-size: 18px;
+    border: 0px solid #ccc;
+  }
+
+  nav.sidebar {
+    position: fixed;
+    top: 0;
+    left: -220px;
+    height: 100vh;
+    width: 200px;
+    background: #ffffff;
+    padding: 20px 15px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+    border-right: 2px solid var(--header-bg);
+  }
+
+  nav.sidebar.open {
+    left: 0;
+  }
+
+  nav.sidebar h2 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--header-bg);
+    padding-bottom: 8px;
+  }
+
+  nav.sidebar a {
+    padding: 8px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+  }
+
+  .main-container {
+    margin-left: 0 !important;
+    flex-direction: column;
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .section {
+    padding: 20px;
+    border-radius: 10px;
+  }
+}
+
+  .docente-card {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .docente-card img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .calendario-title {
+    font-size: 18px;
+  }
+
+  .semana {
+    font-size: 12px;
+  }
+
+  #calendarioEst div {
+    min-height: 50px;
+    font-size: 12px;
+    padding: 2px;
+  }
+}
+
+/* Tabletas (601px a 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  header {
+    padding: 15px 20px;
+  }
+
+  nav.sidebar {
+    width: 200px;
+    padding: 15px;
+  }
+
+  .content {
+    padding: 30px;
+  }
+
+  .section {
+    padding: 25px;
+  }
+
+  .docente-card img {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+/* Pantallas grandes (más de 1600px) */
+@media (min-width: 1600px) {
+  .content {
+    padding: 60px;
+    font-size: 18px;
+  }
+
+  .section {
+    max-width: 1200px;
+    padding: 40px;
+  }
+
+  nav.sidebar {
+    width: 280px;
+    font-size: 16px;
+  }
+
+  .docente-card {
+    padding: 30px;
+  }
+
+  .docente-card img {
+    width: 120px;
+    height: 120px;
+  }
+
+  table.grades td, table.grades th {
+    font-size: 16px;
+  }
+}
+   
+  </style>
+  
+</head>
+<body>
+  <header>
+    <img src="IMAGENES/LogoReset.png" alt="Logo Reset"><h1 style="color: white;">Módulo 1: Neuroliderazgo & IA</h1>
+    <img src="IMAGENES/LOGO-UAHM-blanco.png" alt="Logo UAHM">
+  </header>
+
+  <div class="main-container">
+    <nav class="sidebar">
+        <h2>Menú</h2>
+        <a href="#" onclick="mostrar('overview')"><i class="nav-link fas fa-home"></i> Inicio</a>
+        <a href="#" onclick="mostrar('calendario', true)"><i class="fas fa-calendar-alt"></i> Calendario</a>
+        <a href="#" onclick="mostrar('pomodoro-section')"><i class="fas fa-stopwatch"></i>Activa tu Pomodoro</a>
+        <a href="#" onclick="mostrar('unidad')"><i class="fas fa-book"></i> Unidades</a>
+        <a href="#" onclick="mostrar('videos')"><i class="fas fa-video"></i> Videos</a>
+        <a href="#" onclick="mostrar('documentos')"><i class="fas fa-file"></i> Documentos</a>
+        <a href="#" onclick="mostrar('foros')"><i class="fas fa-comments"></i> Foros</a>
+        <a href="#" onclick="mostrar('tareas')"><i class="fas fa-tasks"></i> Tareas</a>
+        <a href="#" onclick="mostrar('recursos')"><i class="fas fa-folder-open"></i> Recursos</a>
+        <a href="#" onclick="mostrar('acceso-docente')"><i class="fas fa-user-tie"></i> Acceso Docente</a>
+        <a href="aulaianeuro.html"><i class="fas fa-arrow-left"></i> Volver</a>
+    </nav>
+    <main class="content">
+
+        <section id="overview" class="section active">
+            <div class="docente-card" style="display:flex; flex-wrap:wrap; gap:20px; align-items:center; background:#fff; border-radius:12px; padding:20px; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+              <img src="IMAGENES/esteban.jpeg" alt="Docente" style="width:150px; height:150px; border-radius:50%; object-fit:cover; border:4px solid #2e7d32;">
+              <div class="docente-info" style="flex:1;">
+                <h3 style="margin-bottom:5px;">👨‍🏫 Dr. Esteban Castillo</h3>
+                <p><strong>Email:</strong> <a href="mailto:esteban@resetfirm.ai" style="color:#1976d2;">esteban@resetfirm.ai</a></p>
+                <p><strong>Tutorías:</strong> Martes y Jueves 10h00 – 12h00</p>
+                <p><strong>Especialidad:</strong> Neurociencias aplicadas a la educación</p>
+                <div style="margin-top:10px; display: flex; gap: 10px; flex-wrap: wrap;">
+                  <button onclick="mostrarBio()" style="padding:6px 12px; background:#e8f5e9; color:#2e7d32; border:1px solid #c8e6c9; border-radius:6px; font-size:14px;">📖 Ver más sobre el docente</button>
+                  <a href="https://calendly.com/esteban-reset/mentoria" target="_blank" style="padding:6px 12px; background:#e3f2fd; color:#1565c0; border:1px solid #bbdefb; border-radius:6px; font-size:14px; text-decoration:none; display:inline-block;">📆 Agendar mentoría</a>
+                </div>
+              </div>
+            </div>
+          
+            <div id="bioDocente" style="margin-top:15px; background:#f9f9f9; border-left:5px solid #2e7d32; padding:15px; display:none; border-radius:8px;">
+              <p>Esteban Castillo es especialista en neurociencias aplicadas a la educación, marketing, management y creatividad. Con amplia experiencia como speaker internacional y formador de líderes, integra IA generativa con enfoques pedagógicos transformadores.</p>
+              <p>Su metodología RESET® combina ciencia, innovación y propósito humano para catalizar la evolución consciente en contextos educativos y corporativos.</p>
+            </div>
+          
+            <h2 style="margin-top:30px;">🧠 Introducción al Curso</h2>
+            <p>Este curso explora los fundamentos del neuroliderazgo y su integración con la inteligencia artificial. Aprenderás cómo los principios neurocientíficos potencian el liderazgo y la transformación organizacional en la era digital.</p>
+          </section>
+          
+          <script>
+            function mostrarBio() {
+              const bio = document.getElementById("bioDocente");
+              bio.style.display = bio.style.display === "none" ? "block" : "none";
+            }
+          </script>
+          
+
+          <section id="calendario" class="section">
+            <div style="text-align: center; margin-bottom: 20px;">
+              <h2 style="font-size: 26px; color: #2e7d32; margin-bottom: 5px;">🗓️ Planificador Académico Mensual</h2>
+              <p style="font-size: 16px; color: #555;">Aquí puedes visualizar eventos clave, entregas y fechas importantes del mes.</p>
+            </div>
+          
+            <div id="calendarioEstWrapper" style="background: #fff; padding: 20px; border-radius: 12px;">
+              <div class="calendario-header">
+                <div class="calendario-nav" onclick="cambiarMesEst(-1)">◀</div>
+                <div class="calendario-title" id="tituloMesEst"></div>
+                <div class="calendario-nav" onclick="cambiarMesEst(1)">▶</div>
+              </div>
+              <div class="semana">
+                <div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div><div>Dom</div>
+              </div>
+              <div id="calendarioEst"></div>
+            </div>
+          
+            <div style="margin-top: 20px; font-size: 14px; color: #444;"><strong>📌 Leyenda:</strong> <ul style="list-style: none; padding-left: 0;">
+                <li>🧪 Evaluación</li>
+                <li>📥 Entrega</li>
+                <li>📅 Evento especial</li>
+              </ul>
+            </div>
+
+            <script>
+              let mesActualEst = new Date().getMonth();
+              let anioActualEst = new Date().getFullYear();
+          
+              function cambiarMesEst(direccion) {
+                mesActualEst += direccion;
+                if (mesActualEst > 11) {
+                  mesActualEst = 0;
+                  anioActualEst++;
+                } else if (mesActualEst < 0) {
+                  mesActualEst = 11;
+                  anioActualEst--;
+                }
+                generarCalendarioEst();
+              }
+          
+              function generarCalendarioEst() {
+                const cont = document.getElementById("calendarioEst");
+                const titulo = document.getElementById("tituloMesEst");
+                const meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+                titulo.textContent = `${meses[mesActualEst]} ${anioActualEst}`;
+          
+                const firstDay = new Date(anioActualEst, mesActualEst, 1).getDay();
+                const daysInMonth = new Date(anioActualEst, mesActualEst + 1, 0).getDate();
+                const notas = JSON.parse(localStorage.getItem("notasCalendario") || "{}");
+          
+                cont.innerHTML = "";
+          
+                const offset = firstDay === 0 ? 6 : firstDay - 1;
+                for (let i = 0; i < offset; i++) {
+                  const emptyDiv = document.createElement("div");
+                  cont.appendChild(emptyDiv);
+                }
+          
+                const hoy = new Date();
+                const esMesActual = hoy.getMonth() === mesActualEst && hoy.getFullYear() === anioActualEst;
+          
+                for (let d = 1; d <= daysInMonth; d++) {
+                  const dateKey = `${anioActualEst}-${String(mesActualEst + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                  const nota = notas[dateKey] || "";
+                  const div = document.createElement("div");
+          
+                  if (esMesActual && d === hoy.getDate()) {
+                    div.classList.add("hoy-est");
+                  }
+          
+                  const contenido = document.createElement("div");
+                  contenido.innerHTML = `<strong>${d}</strong>`;
+                  div.appendChild(contenido);
+          
+                  if (nota) {
+                    const spanNota = document.createElement("span");
+                    spanNota.textContent = `📝 ${nota}`;
+                    spanNota.style.cssText = `font-size: 12px; color: #333; display: block; margin-top: 6px;`;
+                    div.appendChild(spanNota);
+                  }
+          
+                  cont.appendChild(div);
+                }
+              }
+          
+              window.addEventListener('load', generarCalendarioEst);
+            </script>
+          </section>   
+
+<section id="unidad" class="section">
+  <h2>🧠 Unidades del Curso (Módulo 1)</h2>
+
+  <!-- Barra de progreso -->
+  <div style="margin-bottom:20px;">
+    <label style="font-weight:bold;">Progreso del curso:</label>
+    <div style="background:#ccc; border-radius:20px; overflow:hidden; height:20px; position:relative;">
+      <div id="barraProgreso" style="height:100%; width:0%; background:#2e7d32; transition: width 0.5s;"></div>
+    </div>
+    <p id="porcentajeProgreso" style="margin-top:5px; font-size:0.9em; color:#555;"></p>
+
+    <!-- 🏆 Trofeo final -->
+    <div id="trofeoFinal" style="display:none; text-align:center; margin-top:15px;">
+      <span style="font-size:40px;">🏆</span>
+      <p style="color:#2e7d32; font-weight:bold;">¡Has completado todas las unidades! Eres un NeuroLíder en evolución 🚀</p>
+    </div>
+  </div>
+
+  <!-- Contenedor de tarjetas -->
+  <div id="listaUnidades" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;"></div>
+</section>
+
+<!-- Estilos de tarjetas -->
+<style>
+  .flip-card {
+    background-color: transparent;
+    perspective: 1000px;
+    height: 320px;
+  }
+
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+  }
+
+  .flip-card-inner.girar {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .flip-card-front {
+    background: #fff;
+  }
+
+  .flip-card-back {
+    background: #f9f9f9;
+    transform: rotateY(180deg);
+  }
+
+  .bloqueo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bloqueo-overlay span {
+    font-size: 12px;
+  }
+
+  .btn-ver {
+    display: inline-block;
+    margin: 10px 0;
+    background: #1976d2;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+
+  .btn-ver.deshabilitado {
+    background: #aaa;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .btn-prueba {
+    margin-top: 10px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .btn-prueba.btn-pendiente {
+    background: #c62828;
+  }
+
+  .btn-prueba.deshabilitado {
+    background: #aaa;
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+</style>
+
+<!-- Modal prueba -->
+<div id="modalPrueba" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000;">
+  <div style="background:white; padding:20px; border-radius:8px; width:90%; max-width:500px; text-align:center;">
+    <h3>🧪 Prueba de la unidad</h3>
+    <p id="preguntaPrueba" style="margin-bottom:15px; font-weight:bold;"></p>
+    <div id="opcionesPrueba" style="display:flex; flex-direction:column; gap:10px; margin-bottom:15px;"></div>
+    <button onclick="cerrarModal()" style="background:transparent; color:#666; border:none;">Cancelar</button>
+  </div>
+</div>
+
+<!-- Script JS -->
+<script>
+  const unidadesCurso = [
+    { id: 1, titulo: "Introducción al Neuroliderazgo", enlace: "https://drive.google.com/drive/folders/1bqSlODrCkJyaZB5j1PBY-IdwuvHvC9k8?usp=sharing", imagen: "IMAGENES/unidad1.png" },
+    { id: 2, titulo: "Neurociencia y toma de decisiones", enlace: "https://drive.google.com/drive/folders/1DWQKI5qD9Ok7XeStp5WPQy1HuATUZR7d?usp=sharing", imagen: "IMAGENES/unidad2.png" },
+    { id: 3, titulo: "Inteligencia Artificial vs. cerebro humano", enlace: "https://drive.google.com/drive/folders/1UsYFkRPuAAMh8SMx7naTE0s9oowJSWyY?usp=sharing", imagen: "IMAGENES/unidad3.png" },
+    { id: 4, titulo: "Liderazgo transformacional con IA", enlace: "https://drive.google.com/drive/folders/1GipqzhMvRyTLJwqR6zgWQcKhXJfQxAO4?usp=sharing", imagen: "IMAGENES/unidad4.png" },
+    { id: 5, titulo: "Mapas mentales y neuroplasticidad", enlace: "https://example.com/pdf5", imagen: "IMAGENES/unidad5.png" },
+    { id: 6, titulo: "Ética en IA y decisiones con propósito", enlace: "https://example.com/pdf6", imagen: "IMAGENES/unidad6.png" }
+  ];
+
+  const preguntasUnidad = {
+    1: { pregunta: "¿Qué disciplina estudia el liderazgo desde el cerebro?", opciones: ["Neuromarketing", "Neuroventas", "Neuroliderazgo", "Neuroeducación"], correcta: 2 },
+    2: { pregunta: "¿Qué parte del cerebro influye más en decisiones rápidas?", opciones: ["Corteza prefrontal", "Amígdala", "Hipocampo", "Cerebelo"], correcta: 1 },
+    3: { pregunta: "¿Qué órgano es comparado con la IA?", opciones: ["Corazón", "Hígado", "Cerebro", "Páncreas"], correcta: 2 },
+    4: { pregunta: "¿Qué tipo de liderazgo se transforma con IA?", opciones: ["Autoritario", "Transaccional", "Transformacional", "Democrático"], correcta: 2 },
+    5: { pregunta: "¿Qué capacidad tiene el cerebro para adaptarse?", opciones: ["Neuroplasticidad", "Neurodiseño", "Neurocognición", "Neurocrítica"], correcta: 0 },
+    6: { pregunta: "¿Qué valor guía decisiones responsables con IA?", opciones: ["Velocidad", "Innovación", "Ética", "Eficiencia"], correcta: 2 }
+  };
+
+  let progreso = JSON.parse(localStorage.getItem('progresoUnidades') || '{}');
+  let unidadEnPrueba = null;
+
+  function renderUnidades() {
+    const contenedor = document.getElementById("listaUnidades");
+    contenedor.innerHTML = '';
+    let completadas = 0;
+
+    unidadesCurso.forEach((unidad, index) => {
+      const completada = progreso[unidad.id] === true;
+      if (completada) completadas++;
+
+      const bloqueada = index > 0 && progreso[unidadesCurso[index - 1].id] !== true;
+
+      const tarjeta = document.createElement("div");
+      tarjeta.className = "flip-card";
+      tarjeta.innerHTML = `
+        <div class="flip-card-inner ${bloqueada ? 'bloqueada' : ''}">
+          <div class="flip-card-front">
+            <img src="${unidad.imagen}" alt="Unidad ${unidad.id}" style="width:100%; height:auto;">
+            ${bloqueada ? `<div class="bloqueo-overlay">🔒<br><span>Completa la anterior</span></div>` : ''}
+          </div>
+          <div class="flip-card-back">
+            <div style="padding: 16px;">
+              <h3>${completada ? '🏅' : '📘'} Unidad ${unidad.id}</h3>
+              <p style="min-height:50px; font-weight:bold;">${unidad.titulo}</p>
+              <a href="${unidad.enlace}" target="_blank" class="btn-ver ${bloqueada ? 'deshabilitado' : ''}">📂 Ver material</a><br>
+              <button onclick="${completada ? `toggleCompletada(${unidad.id})` : (bloqueada ? `alert('Primero debes completar la unidad anterior.')` : `iniciarPrueba(${unidad.id})`)}"
+                class="btn-prueba ${completada ? 'btn-pendiente' : (bloqueada ? 'deshabilitado' : '')}">
+                ${completada ? '❌ Marcar como pendiente' : '✅ Dar prueba de unidad'}
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      contenedor.appendChild(tarjeta);
+    });
+
+    actualizarProgreso(completadas, unidadesCurso.length);
+
+    // Activar giro solo por clic en la tarjeta (no en botones o links)
+    document.querySelectorAll('.flip-card').forEach(card => {
+      card.addEventListener('click', function (e) {
+        if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A') {
+          const inner = this.querySelector('.flip-card-inner');
+          if (!inner.classList.contains('bloqueada')) {
+            inner.classList.toggle('girar');
+          }
+        }
+      });
+    });
+  }
+
+  function iniciarPrueba(idUnidad) {
+    unidadEnPrueba = idUnidad;
+    const datos = preguntasUnidad[idUnidad];
+    const contOpciones = document.getElementById("opcionesPrueba");
+    contOpciones.innerHTML = "";
+
+    document.getElementById("preguntaPrueba").innerText = datos.pregunta;
+
+    datos.opciones.forEach((texto, index) => {
+      const btn = document.createElement("button");
+      btn.textContent = texto;
+      btn.style.cssText = "padding:10px; border-radius:6px; border:none; background:#1976d2; color:white; cursor:pointer;";
+      btn.onclick = () => verificarRespuesta(index);
+      contOpciones.appendChild(btn);
+    });
+
+    document.getElementById("modalPrueba").style.display = "flex";
+  }
+
+  function verificarRespuesta(indexSeleccionado) {
+    const correcta = preguntasUnidad[unidadEnPrueba].correcta;
+    if (indexSeleccionado === correcta) {
+      progreso[unidadEnPrueba] = true;
+      localStorage.setItem('progresoUnidades', JSON.stringify(progreso));
+      cerrarModal();
+      renderUnidades();
+      alert("✅ ¡Respuesta correcta! Has desbloqueado la siguiente unidad.");
+    } else {
+      alert("❌ Respuesta incorrecta. Intenta otra vez.");
+    }
+  }
+
+  function toggleCompletada(id) {
+    progreso[id] = false;
+    localStorage.setItem('progresoUnidades', JSON.stringify(progreso));
+    renderUnidades();
+  }
+
+  function cerrarModal() {
+    document.getElementById("modalPrueba").style.display = "none";
+  }
+
+  function actualizarProgreso(actual, total) {
+    const porcentaje = Math.round((actual / total) * 100);
+    document.getElementById("barraProgreso").style.width = porcentaje + "%";
+    document.getElementById("porcentajeProgreso").textContent = `${porcentaje}% completado (${actual} de ${total} unidades)`;
+    document.getElementById("trofeoFinal").style.display = porcentaje === 100 ? "block" : "none";
+  }
+
+  window.addEventListener('load', renderUnidades);
+</script>
+
+
+    
+        <section id="videos" class="section">
+  <h2>Videos del Curso (Módulo 1)</h2>
+
+  <!-- VIDEO 1 -->
+  <div id="video1-container" style="background: #000; border-radius: 12px; overflow: hidden; margin-bottom: 20px;">
+    <video id="video1" width="100%" height="400" controls>
+      <source src="IMAGENES/FormacionArtesanosModulo_I.mp4" type="video/mp4">
+      Tu navegador no soporta el video.
+    </video>
+    <div style="padding:10px; background:white;">
+      <h4 style="margin: 5px 0; color: black;">Estado del Arte de la IA</h4>
+      <button onclick="toggleContent('resumen1')" style="color:black;">📄 Ver Resumen</button>
+      <button onclick="toggleContent('quiz1')" style="color:black;">❓ Quiz</button>
+
+      <div id="resumen1" style="display:none; margin-top: 10px; color:black;">
+        El proyecto AI | Smart Education® tiene como objetivo transformar la educación y revolucionar el sistema educativo a través de la integración de inteligencia artificial.
+        <br><br>
+        En sintonía con los valores institucionales, esta iniciativa prepara a los estudiantes para un futuro altamente competitivo en un mundo impulsado por la tecnología.
+        <br><br>
+        ¿Por qué necesitamos formación en IA ahora?
+        <br><br>
+        La educación tradicional y sus modelos no está preparando a las personas para la realidad del siglo XXI.
+        <br><br>
+        Mientras la inteligencia artificial avanza exponencialmente, el sistema educativo sigue utilizando métodos del siglo pasado. La velocidad de desarrollo tecnológico ha superado la capacidad de adaptación de los modelos educativos tradicionales.
+      </div>
+
+      <div id="quiz1" style="display:none; margin-top: 10px;">
+        <div class="pregunta">
+          <p style="color:black;"><strong>1. ¿Qué define el “estado del arte” en inteligencia artificial?</strong></p>
+          <button onclick="checkAnswer(this, true)" style="color:black; background:none; border:none;">a) Conjunto de desarrollos actuales más avanzados</button><br>
+          <button onclick="checkAnswer(this, false)" style="color:black; background:none; border:none;">b) Solo los algoritmos clásicos de IA</button><br>
+          <button onclick="checkAnswer(this, false)" style="color:black; background:none; border:none;">c) Aplicaciones del pasado</button><br><br>
+        </div>
+        <div class="pregunta">
+          <p style="color:black;"><strong>2. ¿Cuál es una aplicación destacada de la IA según el video?</strong></p>
+          <button onclick="checkAnswer(this, true)" style="color:black; background:none; border:none;">a) Diagnóstico médico asistido</button><br>
+          <button onclick="checkAnswer(this, false)" style="color:black; background:none; border:none;">b) Pintura tradicional</button><br>
+          <button onclick="checkAnswer(this, false)" style="color:black; background:none; border:none;">c) Agricultura sin datos</button><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO 2 -->
+  <div id="video2-container" style="display:none; background: #000; border-radius: 12px; overflow: hidden; margin-bottom: 20px;">
+    <video id="video2" width="100%" height="400" controls>
+      <source src="IMAGENES/FormacionArtesanosModulo_II.mp4" type="video/mp4">
+      Tu navegador no soporta el video.
+    </video>
+    <div style="padding:10px; background:white;">
+      <h4 style="margin: 5px 0; color: black;">Neuroliderazgo y Empatía Digital</h4>
+      <button onclick="toggleContent('resumen2')" style="color:black;">📄 Ver Resumen</button>
+      <button onclick="toggleContent('quiz2')" style="color:black;">❓ Quiz</button>
+
+      <div id="resumen2" style="display:none; margin-top: 10px; color:black; text-align: justify;">
+        Esteban Castillo, CEO de RESET, fue invitado al reconocido podcast de Charlie Sebastián. Durante esta enriquecedora conversación, se abordó cómo la inteligencia artificial está revolucionando nuestras vidas, el trabajo y la forma en que entendemos el mundo.<br><br>
+        💡 Temas clave discutidos:<br>
+        ✅ El impacto de los algoritmos en nuestra atención (Nomofobia).<br>
+        ✅ Cómo liderar en la era de la transformación digital.<br>
+        ✅ Ética y narrativas en la inteligencia artificial.<br>
+        ✅ Neuromarketing y conexiones emocionales.<br><br>
+        Timestamps del Episodio:<br>
+        00:00:00 Intro<br>
+        0:01:00 Nomofobia y algoritmos sociales<br>
+        0:19:04 Transformación digital y liderazgo<br>
+        0:29:56 Ética y narrativas en IA<br>
+        0:44:56 Neuromarketing y conexiones emocionales<br>
+        1:00:03 Evolución humana y narrativas<br>
+        1:11:08 Responsabilidad en la innovación digital<br>
+        1:20:42 Experiencias y prototipado en IA<br>
+      </div>
+
+      <div id="quiz2" style="display:none; margin-top: 10px;">
+        <div class="pregunta">
+          <p style="color:black;"><strong>1. ¿Qué habilidad principal debe desarrollar un neurolíder?</strong></p>
+          <button onclick="checkAnswer(this, true)" style="color:black; background:none; border:none;">a) Autoconciencia y empatía</button><br>
+          <button onclick="checkAnswer(this, false)" style="color:black; background:none; border:none;">b) Rigidez mental</button><br>
+          <button onclick="checkAnswer(this, false)" style="color:black; background:none; border:none;">c) Control emocional estricto</button><br><br>
+        </div>
+        <div class="pregunta">
+          <p style="color:black;"><strong>2. ¿Qué factor potencia la empatía digital según el video?</strong></p>
+          <button onclick="checkAnswer(this, true)" style="color:black; background:none; border:none;">a) Escucha activa y comunicación no verbal</button><br>
+          <button onclick="checkAnswer(this, false)" style="color:black; background:none; border:none;">b) Uso excesivo de correos</button><br>
+          <button onclick="checkAnswer(this, false)" style="color:black; background:none; border:none;">c) Ignorar los estados emocionales</button><br>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const video1 = document.getElementById("video1");
+    const video2 = document.getElementById("video2");
+    const container1 = document.getElementById("video1-container");
+    const container2 = document.getElementById("video2-container");
+
+    video1.addEventListener('ended', function () {
+      container1.style.display = 'none';
+      container2.style.display = 'block';
+      video2.play();
+    });
+  });
+
+  function toggleContent(id) {
+    const el = document.getElementById(id);
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  }
+
+  function checkAnswer(button, isCorrect) {
+    if (isCorrect) {
+      button.style.backgroundColor = '#c8e6c9';
+      button.innerText += " ✅ ¡Correcto!";
+    } else {
+      button.style.backgroundColor = '#ffcdd2';
+      button.innerText += " ❌ Intenta de nuevo";
+    }
+    const parent = button.parentElement;
+    const buttons = parent.querySelectorAll('button');
+    buttons.forEach(btn => btn.disabled = true);
+  }
+</script>
+      
+              
+
+      <section id="documentos" class="section">
+        <h2>Documentos del Curso (Módulo 1)</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+          <div style="background: #fff; border: 1px solid #ccc; border-radius: 12px; overflow: hidden;">
+            <embed src="https://d1433d7d-d965-4b9d-b204-00ffda52c242.usrfiles.com/ugd/d1433d_5e3c51e8f2e54955b48ad0ba27fb7f28.pdf" type="application/pdf" width="100%" height="300px" />
+            <div style="padding:10px; background:#f1f1f1;">
+              <h4 style="margin: 5px 0; color: black;">📄 Neuroliderazgo Básico</h4>
+            </div>
+          </div>
+          <div style="background: #fff; border: 1px solid #ccc; border-radius: 12px; overflow: hidden;">
+            <embed src="https://d1433d7d-d965-4b9d-b204-00ffda52c242.usrfiles.com/ugd/d1433d_5e3c51e8f2e54955b48ad0ba27fb7f28.pdf" type="application/pdf" width="100%" height="300px" />
+            <div style="padding:10px; background:#f1f1f1;">
+              <h4 style="margin: 5px 0; color: black;">📄 Comparativa entre Cerebro Humano e IA</h4>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- SECCIÓN DE FORO -->
+    <section id="foros" class="section">
+    <h2>Foro de Discusión (Módulo 1)</h2>
+    <input type="text" id="temaForo" placeholder="Tema del debate (editable)" style="width:100%; margin:10px 0; padding:8px; font-weight:bold; font-size:16px;" oninput="guardarTema()">
+    <input type="text" id="foroAutor" placeholder="Tu nombre" style="width:100%; margin:10px 0; padding:8px;">
+    <textarea id="foroMensaje" placeholder="Tu opinión o aporte..." style="width:100%; height:80px; padding:8px;"></textarea>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top:10px;">
+      <button onclick="publicarForo()" class="btn-foro">💬 Publicar</button>
+      <button onclick="borrarTodoForo()" class="btn-foro btn-danger">🗑 Borrar Todo</button>
+    </div>
+    <div id="foroContainer" style="margin-top:20px;"></div>
+  </section>
+  
+  <script>
+    function guardarTema() {
+      localStorage.setItem('temaForo', document.getElementById('temaForo').value);
+    }
+  
+    function cargarTema() {
+      const tema = localStorage.getItem('temaForo');
+      if (tema) document.getElementById('temaForo').value = tema;
+    }
+  
+    function publicarForo(respuestaAId = null) {
+      const autor = document.getElementById('foroAutor').value.trim();
+      const mensaje = document.getElementById('foroMensaje').value.trim();
+      if (!autor || !mensaje) return;
+  
+      const id = Date.now();
+      const post = { id, autor, mensaje, respuestas: [], respuestaAId, likes: 0 };
+      const foro = JSON.parse(localStorage.getItem('foroPosts') || '[]');
+  
+      if (respuestaAId) {
+        const index = foro.findIndex(p => p.id === respuestaAId);
+        if (index > -1) foro[index].respuestas.push(post);
+      } else {
+        foro.unshift(post);
+      }
+  
+      localStorage.setItem('foroPosts', JSON.stringify(foro));
+      mostrarForos();
+      document.getElementById('foroAutor').value = "";
+      document.getElementById('foroMensaje').value = "";
+    }
+  
+    function publicarForoRespuesta(respuestaAId) {
+      const autor = document.getElementById(`autorRespuesta${respuestaAId}`).value.trim();
+      const mensaje = document.getElementById(`mensajeRespuesta${respuestaAId}`).value.trim();
+      if (!autor || !mensaje) return;
+  
+      const id = Date.now();
+      const foro = JSON.parse(localStorage.getItem('foroPosts') || '[]');
+      const post = { id, autor, mensaje, respuestas: [], respuestaAId, likes: 0 };
+  
+      const index = foro.findIndex(p => p.id === respuestaAId);
+      if (index > -1) foro[index].respuestas.push(post);
+  
+      localStorage.setItem('foroPosts', JSON.stringify(foro));
+      mostrarForos();
+    }
+  
+    function mostrarForos() {
+      const contenedor = document.getElementById('foroContainer');
+      contenedor.innerHTML = "";
+      const foro = JSON.parse(localStorage.getItem('foroPosts') || '[]');
+      foro.forEach(post => {
+        contenedor.appendChild(crearPostHTML(post));
+      });
+    }
+  
+    function crearPostHTML(post, esRespuesta = false) {
+      const div = document.createElement('div');
+      div.className = 'forum-post';
+      if (esRespuesta) {
+  div.style.marginLeft = '30px';
+  div.style.marginTop = '22px';
+  div.style.paddingTop = '10px';
+  div.style.borderTop = '1px dashed #ccc';
+  div.style.background = '#f5f5f5';
+}
+      div.style.border = '1px solid #ccc';
+      div.style.padding = '10px';
+      div.style.marginBottom = '10px';
+      div.style.borderRadius = '8px';
+      div.style.background = esRespuesta ? '#f9f9f9' : '#fff';
+  
+      div.innerHTML = `
+        <h4>${post.autor}</h4>
+        <p>${post.mensaje}</p>
+        <div style="display:flex; gap:10px; align-items:center; margin-top:8px;">
+          <button onclick="eliminarPost(${post.id})" class="btn-foro btn-danger">🗑 Eliminar</button>
+          <button onclick="responderPost(${post.id})" class="btn-foro">💬 Responder</button>
+          <button onclick="darLike(${post.id})" class="btn-foro">👍 ${post.likes}</button>
+        </div>
+      `;
+  
+      if (post.respuestas && post.respuestas.length > 0) {
+        post.respuestas.forEach(respuesta => {
+          div.appendChild(crearPostHTML(respuesta, true));
+        });
+      }
+  
+      return div;
+    }
+  
+    function responderPost(id) {
+      const foroContainer = document.getElementById('foroContainer');
+      foroContainer.querySelectorAll('.respuesta-form').forEach(f => f.remove());
+  
+      const postDiv = [...foroContainer.querySelectorAll('.forum-post')].find(div => div.innerHTML.includes(`responderPost(${id})`));
+      if (!postDiv) return;
+  
+      const form = document.createElement('div');
+      form.className = 'respuesta-form';
+      form.style.marginTop = '10px';
+      form.style.padding = '10px';
+      form.style.borderTop = '1px dashed #ccc';
+      form.style.background = '#fefefe';
+      form.style.animation = 'slideFade 0.3s ease-in-out';
+  
+      form.innerHTML = `
+        <input type="text" id="autorRespuesta${id}" placeholder="Tu nombre" style="width: 100%; margin-bottom: 6px; padding: 6px; font-size: 14px;">
+        <textarea id="mensajeRespuesta${id}" placeholder="Tu respuesta..." style="width: 100%; padding: 6px; font-size: 14px; height: 60px;"></textarea>
+        <button onclick="publicarForoRespuesta(${id})" class="btn-foro" style="margin-top: 6px;">📩 Responder</button>
+      `;
+  
+      postDiv.appendChild(form);
+    }
+  
+    function darLike(id) {
+      const foro = JSON.parse(localStorage.getItem('foroPosts') || '[]');
+      foro.forEach(post => {
+        if (post.id === id) {
+          post.likes = (post.likes || 0) + 1;
+        } else {
+          post.respuestas = (post.respuestas || []).map(r => {
+            if (r.id === id) r.likes = (r.likes || 0) + 1;
+            return r;
+          });
+        }
+      });
+      localStorage.setItem('foroPosts', JSON.stringify(foro));
+      mostrarForos();
+    }
+  
+    function eliminarPost(id) {
+      let foro = JSON.parse(localStorage.getItem('foroPosts') || '[]');
+      foro = foro.filter(p => p.id !== id);
+      foro.forEach(post => {
+        post.respuestas = (post.respuestas || []).filter(r => r.id !== id);
+      });
+      localStorage.setItem('foroPosts', JSON.stringify(foro));
+      mostrarForos();
+    }
+  
+    function borrarTodoForo() {
+      if (confirm("¿Seguro que quieres borrar todo el foro?")) {
+        localStorage.removeItem('foroPosts');
+        mostrarForos();
+      }
+    }
+  
+    window.addEventListener('load', () => {
+      cargarTema();
+      mostrarForos();
+    });
+  </script>
+     
+     <section id="tareas" class="section">
+      <h2>📘 Gestión de Tareas (Módulo 1)</h2>
+    
+      <div id="formTareaContainer" style="display:none;">
+        <form id="formTarea">
+          <input type="text" id="tituloTarea" placeholder="Título del deber" required class="input-field">
+          <textarea id="descripcionTarea" placeholder="Instrucciones o descripción..." required class="textarea-field"></textarea>
+          
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span>📅</span>
+              <input type="date" id="fechaTarea" required class="input-field" style="width: 200px;">
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span>⏰</span>
+              <input type="time" id="horaTarea" required class="input-field" style="width: 120px;">
+            </div>
+          </div>
+          
+          <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+            <button type="submit" class="button primary">📌 Crear Tarea</button>
+            <button type="button" onclick="borrarEntregasPrevias()" class="button secondary">🧹 Limpiar entregas anteriores</button>
+            <button id="btnEliminarTarea" onclick="eliminarTarea()" style="display:none;" class="button danger">🗑 Eliminar Tarea</button>
+          </div>
+        </form>
+      </div>
+    
+      <div id="claveDocenteContainer" style="display: flex; gap: 10px; align-items: center; margin: 20px 0;">
+        <input type="password" id="claveDocente" placeholder="Clave del docente" class="input-field" style="flex: 1;">
+        <button onclick="verificarDocente()" class="button secondary" style="white-space: nowrap;">🔐 Validar Docente</button>
+      </div><br>
+    
+      <div id="tareaActual" style="margin: 20px 0; background: #f9f9f9; padding: 15px; border-radius: 8px; color: black;"></div>
+    
+      <hr>
+      <h3>📝 Entregas de Estudiantes</h3>
+      <div id="listaEntregas" class="entregas-grid"></div>
+      <div id="botonAgregarContainer" style="display: flex; justify-content: center; margin-top: 30px;">
+        <button onclick="agregarEntrega()" id="btnAgregarEntrega" class="floating-button">➕</button>
+      </div>
+    </section>
+    
+    <script>
+      let entregas = JSON.parse(localStorage.getItem('entregasCurso') || '[]');
+      let tareaGeneral = JSON.parse(localStorage.getItem('tareaGeneral') || 'null');
+      let esDocente = false;
+    
+      document.getElementById('formTarea').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const titulo = document.getElementById('tituloTarea').value;
+        const descripcion = document.getElementById('descripcionTarea').value;
+        const fecha = document.getElementById('fechaTarea').value;
+        const hora = document.getElementById('horaTarea').value;
+        
+        if (!hora) {
+          alert("Por favor, selecciona una hora límite.");
+          return;
+        }
+    
+        tareaGeneral = { titulo, descripcion, fecha, hora };
+        localStorage.setItem('tareaGeneral', JSON.stringify(tareaGeneral));
+        this.reset();
+        mostrarTarea();
+        mostrarEntregas();
+      });
+    
+      function verificarDocente() {
+        const clave = document.getElementById('claveDocente').value;
+        if (clave === 'reset123') {
+          esDocente = true;
+          document.getElementById('formTareaContainer').style.display = 'block';
+          document.getElementById('btnEliminarTarea').style.display = 'inline-block';
+          document.getElementById('claveDocenteContainer').style.display = 'none';
+          mostrarEntregas();
+        } else {
+          alert("Clave incorrecta");
+        }
+      }
+    
+      function mostrarTarea() {
+        const cont = document.getElementById('tareaActual');
+        cont.innerHTML = '';
+    
+        if (!tareaGeneral) {
+          cont.innerHTML = '<p style="color: gray;">⚠️ No hay deber asignado aún.</p>';
+          return;
+        }
+    
+        const fechaHoraLimite = new Date(`${tareaGeneral.fecha}T${tareaGeneral.hora || '23:59'}`);
+        const vencida = fechaHoraLimite < new Date();
+    
+        cont.innerHTML = `
+          <h4>${tareaGeneral.titulo}</h4>
+          <p>${tareaGeneral.descripcion}</p>
+          <p><strong>Fecha límite:</strong> 
+            <span style="color:${vencida ? 'red' : 'green'}">
+              ${tareaGeneral.fecha} - ${tareaGeneral.hora || '23:59'}
+            </span>
+          </p>
+        `;
+      }
+    
+      function eliminarTarea() {
+        if (confirm("¿Seguro que deseas eliminar esta tarea y todas las entregas?")) {
+          localStorage.removeItem('tareaGeneral');
+          localStorage.removeItem('entregasCurso');
+          tareaGeneral = null;
+          entregas = [];
+          mostrarTarea();
+          mostrarEntregas();
+        }
+      }
+    
+      function borrarEntregasPrevias() {
+        if (confirm("¿Deseas borrar todas las entregas anteriores sin eliminar el deber actual?")) {
+          localStorage.removeItem('entregasCurso');
+          entregas = [];
+          mostrarEntregas();
+        }
+      }
+    
+      function agregarEntrega() {
+        if (!tareaGeneral) {
+          alert("⚠️ Primero debe asignarse una tarea para habilitar las entregas.");
+          return;
+        }
+    
+        const ahora = Date.now();
+        const limite = new Date(`${tareaGeneral.fecha}T${tareaGeneral.hora || '23:59'}`).getTime();
+        if (ahora > limite) {
+          alert("⛔️ Ya no se pueden agregar entregas. Fecha límite vencida.");
+          return;
+        }
+    
+        if (entregas.length >= 30) {
+          document.getElementById('botonAgregarContainer').style.display = 'none';
+          return;
+        }
+    
+        const id = Date.now();
+        entregas.push({ id, nombreEstudiante: '', archivo: null, bloqueoHasta: null });
+        guardarEntregas();
+        mostrarEntregas();
+      }
+    
+      function guardarEntregas() {
+        localStorage.setItem('entregasCurso', JSON.stringify(entregas));
+      }
+    
+      function mostrarEntregas() {
+        const contenedor = document.getElementById('listaEntregas');
+        contenedor.innerHTML = '';
+        const ahora = Date.now();
+        const fechaVencimiento = tareaGeneral ? new Date(`${tareaGeneral.fecha}T${tareaGeneral.hora || '23:59'}`).getTime() : null;
+        const tareaVencida = fechaVencimiento && ahora > fechaVencimiento;
+    
+        entregas.forEach(e => {
+          const bloqueado = e.bloqueoHasta && ahora < e.bloqueoHasta;
+          const div = document.createElement('div');
+          div.className = 'entrega-card';
+    
+          div.innerHTML = `
+            <label>👤 Nombre del estudiante:</label>
+            <input type="text" value="${e.nombreEstudiante || ''}" onchange="actualizarNombre(${e.id}, this.value)" class="input-field" ${bloqueado ? 'readonly' : ''}>
+            <label>📎 Subir archivo:</label>
+            <input type="file" onchange="guardarArchivo(${e.id}, this)" class="input-field" ${bloqueado || tareaVencida ? 'disabled' : ''}>
+            ${e.archivo
+              ? esDocente
+                ? `<a href="${e.archivo}" download style="color:#1565c0;">📥 Descargar</a>`
+                : `<p style="color: gray;">📎 Archivo subido</p>`
+              : '<p style="color:red;">⚠️ No se ha subido archivo</p>'}
+            ${tareaVencida ? '<p style="color:red;">⛔️ Fecha límite vencida. No se permiten nuevas entregas.</p>' : ''}
+          `;
+          contenedor.appendChild(div);
+        });
+    
+        const botonAgregar = document.getElementById('botonAgregarContainer');
+        botonAgregar.style.display = (!tareaGeneral || tareaVencida || entregas.length >= 30) ? 'none' : 'flex';
+      }
+    
+      function actualizarNombre(id, valor) {
+        const i = entregas.findIndex(e => e.id === id);
+        if (i !== -1) {
+          entregas[i].nombreEstudiante = valor;
+          guardarEntregas();
+        }
+      }
+    
+      function guardarArchivo(id, input) {
+        const file = input.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const i = entregas.findIndex(ent => ent.id === id);
+            if (i !== -1) {
+              entregas[i].archivo = e.target.result;
+              entregas[i].bloqueoHasta = Date.now() + 5 * 60 * 1000;
+              guardarEntregas();
+              mostrarEntregas();
+            }
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+    
+      window.addEventListener('load', () => {
+        mostrarTarea();
+        mostrarEntregas();
+      });
+    </script>
+    
+
+<section id="recursos" class="section">
+    <h2>📘 Recursos Disponibles (Módulo 1)</h2>
+    <div id="recursosList" style="background: #fff; padding: 20px; border-radius: 12px;">
+      <ul id="listaRecursosEst" style="list-style: none; padding-left: 0; color: black;">
+        <li id="no-recursos">No hay recursos disponibles aún.</li>
+      </ul>
+    </div>
+    <script>
+        function mostrarRecursosEstudiante() {
+          const list = document.getElementById('listaRecursosEst');
+          const materiales = JSON.parse(localStorage.getItem('materialDocente') || '[]');
+          list.innerHTML = '';
+      
+          if (materiales.length === 0) {
+            list.innerHTML = '<li id="no-recursos">No hay recursos disponibles aún.</li>';
+            return;
+          }
+      
+          materiales.forEach(mat => {
+            const li = document.createElement('li');
+            li.style.marginBottom = "10px";
+            li.innerHTML = `
+              📎 <strong>${mat.title}</strong> - 
+              <a href="${mat.url}" download="${mat.name}" style="color:#1565c0; text-decoration:underline;">
+                Descargar
+              </a>
+            `;
+            list.appendChild(li);
+          });
+        }
+      
+        window.addEventListener("load", mostrarRecursosEstudiante);
+      </script>          
+  </section>
+  
+  
+<!-- ACCESO DOCENTE MEJORADO CON BOTONES DE TARJETAS -->
+<section id="acceso-docente" class="section">
+    <h2>🎓 ACCESO DOCENTE</h2>
+  
+    <div id="loginDocente" style="margin-bottom: 20px;">
+      <input type="password" id="claveDocenteInput" placeholder="Ingrese clave de docente" style="padding: 8px; width: 100%; margin-bottom: 10px;">
+      <button onclick="verificarClave()" style="padding: 8px 16px;background: #e8f5e9;border: 1px solid #c8e6c9;border-radius: 12px;font-size: 14px;font-weight: 500;color: #2e7d32;display: inline-flex;align-items: center;gap: 8px;cursor: pointer;transition: all 0.3s ease;"><i class="fas fa-unlock-alt" style="color: #2e7d32;"></i> Acceder</button>
+          <p id="mensajeError" style="color: red; display: none;">❌ Clave incorrecta</p>
+    </div>
+  
+    <div id="contenidoDocente" style="display: none;">
+      <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;">
+        <div onclick="mostrarSeccionDocente('calendarioInteractivo')" style="flex: 1; min-width: 200px; cursor: pointer; background: linear-gradient(135deg, #cbd9e4, #dee8f5); border-radius: 16px; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: left;">
+          <h3 style="margin: 0 0 8px;"><i class="fas fa-calendar-alt"></i> Calendario</h3>
+          <p>Registra fechas importantes y eventos académicos.</p>
+        </div>
+        <div onclick="mostrarSeccionDocente('recursosDisponibles')" style="flex: 1; min-width: 200px; cursor: pointer; background: linear-gradient(135deg, #e3d4ec, #f0e6f9); border-radius: 16px; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: left;">
+          <h3 style="margin: 0 0 8px;"><i class="fas fa-folder-open"></i> Recursos</h3>
+          <p>Sube y comparte materiales útiles con los estudiantes.</p>
+        </div>
+        <div onclick="mostrarSeccionDocente('registroCalificaciones')" style="flex: 1; min-width: 200px; cursor: pointer; background: linear-gradient(135deg, #f5d1d1, #f8e1e1); border-radius: 16px; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: left;">
+          <h3 style="margin: 0 0 8px;"><i class="fas fa-chart-line"></i> Calificaciones</h3>
+          <p>Evalúa y lleva el control académico de tus estudiantes.</p>
+        </div>
+      </div>
+  
+      <div id="calendarioInteractivo" style="display: none;">
+        <div style="margin-bottom: 30px; background: #f0f0f0; padding: 20px; border-radius: 12px;">
+            <h4 style="color: #333;">📅 Calendario Académico Interactivo</h4>
+            <div id="calendarioWrapper">
+              <div class="calendario-header">
+                <div class="calendario-nav" onclick="cambiarMes(-1)">◀</div>
+                <div class="calendario-title" id="tituloMes"></div>
+                <div class="calendario-nav" onclick="cambiarMes(1)">▶</div>
+              </div>
+              <div class="semana">
+                <div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div><div>Dom</div>
+              </div>
+              <div id="calendario"></div>
+            </div>
+            <div style="margin-top: 10px;">
+                <div style="display: flex; flex-direction: column; gap: 10px; max-width: 300px; margin: auto;">
+                    <input type="date" class="style" id="fechaNota" style="padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; width: 100%;">
+                    <input type="text" id="notaDia" placeholder="Agregar recordatorio" style="padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; width: 100%;">
+                  </div>                  
+              <button onclick="guardarNotaDia()" style="color: black;">📌 Guardar Nota</button>
+              <button onclick="borrarNotasDelMes()" style="margin-left: 10px; color: white; background: crimson; padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer;">🧹 Borrar notas del mes</button>
+            </div>
+          </div>
+          <style>
+            #calendario {
+              
+              grid-template-columns: repeat(7, 1fr);
+              gap: 5px;
+            }
+          
+            .calendario-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 10px;
+              font-size: 18px;
+              font-weight: bold;
+              color: #333;
+            }
+          
+            .calendario-nav {
+              color: #1565c0;
+              cursor: pointer;
+              font-size: 14px;
+            }
+          
+            .calendario-title {
+              font-size: 24px;
+            }
+          
+            .semana {
+              display: grid;
+              grid-template-columns: repeat(7, 1fr);
+              font-weight: bold;
+              background-color: #f9f9f9;
+              padding: 8px 0;
+              border-radius: 6px;
+              font-size: 14px;
+            }
+          
+            .semana div {
+              border-right: 1px dotted #ccc;
+              text-align: center;
+            }
+          
+            .semana div:last-child {
+              border-right: none;
+            }
+          
+            .hoy {
+              background-color: #e0f7fa !important;
+              border: 2px solid #0097a7 !important;
+            }
+          
+            #materialsList li {
+              font-size: 14px;
+              color: black;
+            }
+          
+            input, button {
+              font-size: 16px;
+            }
+          </style>
+          
+          <script>
+            let mesActual = new Date().getMonth();
+            let anioActual = new Date().getFullYear();
+          
+            function verificarClave() {
+              const clave = document.getElementById("claveDocenteInput").value;
+              const mensaje = document.getElementById("mensajeError");
+              if (clave === "reset123") {
+                document.getElementById("contenidoDocente").style.display = "block";
+                document.getElementById("loginDocente").style.display = "none";
+              } else {
+                mensaje.style.display = "block";
+              }
+            }
+          
+            function guardarNotaDia() {
+              const fecha = document.getElementById("fechaNota").value;
+              const texto = document.getElementById("notaDia").value.trim();
+              if (!fecha || !texto) return;
+          
+              let notas = JSON.parse(localStorage.getItem("notasCalendario") || "{}");
+              notas[fecha] = texto;
+              localStorage.setItem("notasCalendario", JSON.stringify(notas));
+              document.getElementById("notaDia").value = "";
+              // generarCalendario(); // eliminado para mantener el calendario fijo
+}
+          
+            function borrarNotasDelMes() {
+              let notas = JSON.parse(localStorage.getItem("notasCalendario") || "{}");
+              let nuevasNotas = {};
+              for (let fecha in notas) {
+                const [y, m] = fecha.split("-").map(Number);
+                if (y !== anioActual || m !== mesActual + 1) {
+                  nuevasNotas[fecha] = notas[fecha];
+                }
+              }
+              if (Object.keys(notas).length === Object.keys(nuevasNotas).length) {
+                alert("No hay notas en este mes.");
+                return;
+              }
+              if (confirm("¿Seguro que deseas borrar todas las notas de este mes?")) {
+                localStorage.setItem("notasCalendario", JSON.stringify(nuevasNotas));
+                // generarCalendario(); // eliminado para mantener el calendario fijo
+alert("Notas del mes borradas.");
+              }
+            }
+          
+            function cambiarMes(direccion) {
+              mesActual += direccion;
+              if (mesActual > 11) {
+                mesActual = 0;
+                anioActual++;
+              } else if (mesActual < 0) {
+                mesActual = 11;
+                anioActual--;
+              }
+              // generarCalendario(); // eliminado para mantener el calendario fijo
+}
+          
+            function generarCalendario() {
+              const cont = document.getElementById("calendario");
+              const titulo = document.getElementById("tituloMes");
+              const meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+              titulo.textContent = `${meses[mesActual]} ${anioActual}`;
+          
+              const firstDay = new Date(anioActual, mesActual, 1).getDay();
+              const daysInMonth = new Date(anioActual, mesActual + 1, 0).getDate();
+              const notas = JSON.parse(localStorage.getItem("notasCalendario") || "{}");
+          
+              // // cont.innerHTML = ""; // desactivado para que el calendario no se borre // eliminado para que no se borren los días
+              const offset = firstDay === 0 ? 6 : firstDay - 1;
+              for (let i = 0; i < offset; i++) {
+                cont.innerHTML += `<div></div>`;
+              }
+          
+              const hoy = new Date();
+              const esMesActual = hoy.getMonth() === mesActual && hoy.getFullYear() === anioActual;
+          
+              for (let d = 1; d <= daysInMonth; d++) {
+                const dateKey = `${anioActual}-${String(mesActual + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                const nota = notas[dateKey] || "";
+                const div = document.createElement("div");
+                div.style.position = "relative";
+                div.style.padding = "10px";
+                div.style.border = "1px solid #eee";
+                div.style.borderRadius = "6px";
+                div.style.minHeight = "80px";
+                div.style.background = "#fff";
+                div.style.textAlign = "left";
+          
+                if (esMesActual && d === hoy.getDate()) {
+                  div.classList.add("hoy");
+                }
+          
+                const contenido = document.createElement("div");
+                contenido.innerHTML = `<strong>${d}</strong>`;
+                div.appendChild(contenido);
+          
+                if (nota) {
+                  const spanNota = document.createElement("span");
+                  spanNota.textContent = `📝 ${nota}`;
+                  spanNota.style.cssText = `font-size: 12px; color: #333; display: block; margin-top: 4px;`;
+                  div.appendChild(document.createElement("br"));
+                  div.appendChild(spanNota);
+                }
+          
+                cont.appendChild(div);
+              }
+            }
+          
+            function handleUpload(event) {
+              event.preventDefault();
+              const title = document.getElementById('docTitle').value;
+              const file = document.getElementById('docFile').files[0];
+          
+              if (title && file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                  const materials = JSON.parse(localStorage.getItem('materialDocente') || '[]');
+                  materials.push({ title, name: file.name, data: e.target.result });
+                  localStorage.setItem('materialDocente', JSON.stringify(materials));
+                  mostrarMateriales();
+                };
+                reader.readAsDataURL(file);
+              }
+          
+              document.getElementById('uploadForm').reset();
+            }
+          
+            function mostrarMateriales() {
+              const list = document.getElementById('materialsList');
+              const materials = JSON.parse(localStorage.getItem('materialDocente') || '[]');
+              list.innerHTML = '';
+          
+              if (materials.length === 0) {
+                list.innerHTML = '<li>No hay documentos aún.</li>';
+                return;
+              }
+          
+              materials.forEach(mat => {
+                const li = document.createElement('li');
+                li.style.marginBottom = "10px";
+                li.innerHTML = `📎 <strong>${mat.title}</strong> - <em>${mat.name}</em>`;
+                list.appendChild(li);
+              });
+            }
+          
+            function borrarMateriales() {
+              if (confirm("¿Seguro que deseas borrar todos los materiales subidos?")) {
+                localStorage.removeItem('materialDocente');
+                mostrarMateriales();
+                alert("Todos los materiales han sido eliminados.");
+              }
+            }
+          
+            window.addEventListener('load', () => {
+              // generarCalendario(); // eliminado para mantener el calendario fijo
+mostrarMateriales();
+            });
+          </script>
+      </div>
+  
+      <div id="recursosDisponibles" style="display: none;">
+            <!-- SUBIDA DE ARCHIVOS -->
+      <div style="margin-bottom: 30px; background: #f9f9f9; padding: 20px; border-radius: 12px;">
+        <h4 style="color: #333;">📤 Subir Material para Estudiantes</h4>
+        <form id="uploadForm" onsubmit="handleUpload(event)">
+          <input type="text" id="docTitle" placeholder="Título del documento" required style="margin-bottom: 10px; padding: 8px; width: 100%;"><br>
+          <input type="file" id="docFile" required><br><br>
+          <button type="submit" style="padding: 10px 20px; color: black;">Subir</button>
+        </form>
+      </div>
+  
+      <!-- MATERIALES SUBIDOS -->
+      <div style="background: #fff; padding: 20px; border-radius: 12px;">
+        <h4 style="color: #333;">📚 Material Subido</h4>
+        <ul id="materialsList" style="list-style: none; padding-left: 0; color: black;">
+          <li>No hay documentos aún.</li>
+        </ul>
+        <button onclick="borrarMateriales()" style="margin-top: 10px; background: crimson; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">🧹 Borrar todos los materiales</button>
+      </div>
+      </div>
+  
+     <!-- BLOQUE COMPLETO DENTRO DEL CONTENEDOR OCULTO -->
+<div id="registroCalificaciones" style="display: none;">
+    <h3>🧮 Registro de Calificaciones</h3>
+    <div style="margin-bottom: 20px;">
+      <input type="text" id="nombreNotaDoc" placeholder="Nombre del estudiante" style="padding:8px; width:100%; margin-bottom:10px;">
+      <input type="text" id="temaNotaDoc" placeholder="Tema o actividad" style="padding:8px; width:100%; margin-bottom:10px;">
+      <input type="number" id="valorNotaDoc" placeholder="Nota (0-10)" min="0" max="10" step="0.1" style="padding:8px; width:100%; margin-bottom:10px;">
+      <button onclick="guardarNotaDocente()" style="padding:10px 16px; background:#2e7d32; color:white; border:none; border-radius:6px;">📌 Guardar Nota</button>
+      <button onclick="borrarTodasNotasDocente()" style="margin-left:10px; padding:10px 16px; background:crimson; color:white; border:none; border-radius:6px;">🧹 Borrar Todo</button>
+    </div>
+  
+    <table style="width:100%; border-collapse: collapse;" id="tablaNotasDocente">
+      <thead>
+        <tr style="background:#f0f0f0;">
+          <th style="padding:10px; border:1px solid #ccc;">Estudiante</th>
+          <th style="padding:10px; border:1px solid #ccc;">Tema</th>
+          <th style="padding:10px; border:1px solid #ccc;">Nota</th>
+          <th style="padding:10px; border:1px solid #ccc;">Acción</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  
+<script>
+    function guardarNotaDocente() {
+      const nombre = document.getElementById('nombreNotaDoc').value.trim();
+      const tema = document.getElementById('temaNotaDoc').value.trim();
+      const nota = parseFloat(document.getElementById('valorNotaDoc').value);
+  
+      if (!nombre || !tema || isNaN(nota)) {
+        alert("Completa todos los campos correctamente.");
+        return;
+      }
+  
+      const calificaciones = JSON.parse(localStorage.getItem('registroNotasDocente') || '[]');
+      calificaciones.push({ id: Date.now(), nombre, tema, nota: nota.toFixed(1) });
+      localStorage.setItem('registroNotasDocente', JSON.stringify(calificaciones));
+      mostrarNotasDocente();
+      document.getElementById('nombreNotaDoc').value = '';
+      document.getElementById('temaNotaDoc').value = '';
+      document.getElementById('valorNotaDoc').value = '';
+    }
+    function mostrarSeccionDocente(seccion) {
+  const secciones = ['calendarioInteractivo', 'recursosDisponibles', 'registroCalificaciones'];
+  secciones.forEach(id => {
+    document.getElementById(id).style.display = (id === seccion) ? 'block' : 'none';
+  });
+}
+
+    function mostrarNotasDocente() {
+      const tabla = document.getElementById('tablaNotasDocente').getElementsByTagName('tbody')[0];
+      const calificaciones = JSON.parse(localStorage.getItem('registroNotasDocente') || '[]');
+      tabla.innerHTML = '';
+  
+      calificaciones.forEach(nota => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+          <td style="padding:8px; border:1px solid #ccc;">${nota.nombre}</td>
+          <td style="padding:8px; border:1px solid #ccc;">${nota.tema}</td>
+          <td style="padding:8px; border:1px solid #ccc;">${nota.nota}</td>
+          <td style="padding:8px; border:1px solid #ccc;">
+            <button onclick="eliminarNotaDocente(${nota.id})" style="padding:4px 8px; background:#e53935; color:white; border:none; border-radius:4px;">🗑</button>
+          </td>
+        `;
+        tabla.appendChild(fila);
+      });
+    }
+  
+    function eliminarNotaDocente(id) {
+      let calificaciones = JSON.parse(localStorage.getItem('registroNotasDocente') || '[]');
+      calificaciones = calificaciones.filter(n => n.id !== id);
+      localStorage.setItem('registroNotasDocente', JSON.stringify(calificaciones));
+      mostrarNotasDocente();
+    }
+  
+    function borrarTodasNotasDocente() {
+      if (confirm("¿Estás seguro de borrar todas las calificaciones?")) {
+        localStorage.removeItem('registroNotasDocente');
+        mostrarNotasDocente();
+      }
+    }
+  
+    window.addEventListener('load', mostrarNotasDocente);
+  </script>
+  </section>
+  
+  <script>
+  function verificarClave() {
+    const clave = document.getElementById("claveDocenteInput").value;
+    const mensaje = document.getElementById("mensajeError");
+    if (clave === "12") {
+      document.getElementById("contenidoDocente").style.display = "block";
+      document.getElementById("loginDocente").style.display = "none";
+    } else {
+      mensaje.style.display = "block";
+    }
+  }
+  
+  function mostrarSeccionDocente(seccion) {
+    const secciones = ['calendarioInteractivo', 'recursosDisponibles', 'registroCalificaciones'];
+    secciones.forEach(id => {
+      document.getElementById(id).style.display = (id === seccion) ? 'block' : 'none';
+    });
+  }
+  </script>
+  
+  <section id="pomodoro-section" class="section" style="font-family: Arial, sans-serif; background-color: #8C4B3D; color: black; padding: 50px 0; text-align: center;">
+    <div class="container">
+      <div class="timer-box" style="background-color: #d409097e; padding: 20px; border-radius: 10px; display: inline-block; width: 300px; color: black;">
+        <img src="https://static.wixstatic.com/media/d1433d_1fd0a21691434417bad80d22ca581850~mv2.gif" alt="Pomodoro" style="width: 100px; margin-bottom: 10px;">
+        <div class="modes" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 10px;">
+          <button id="pomodoroBtn" class="active" style="color: black;">Pomodoro</button>
+          <button id="shortBreakBtn" style="color: black;">Short Break</button>
+          <button id="longBreakBtn" style="color: black;">Long Break</button>
+        </div>
+        <div id="timer" class="timer" style="font-size: 50px; font-weight: bold; margin: 10px 0; color: black;">25:00</div>
+        <button id="startPauseBtn" class="start-btn" style="color: black;">START</button>
+        <button id="soundToggleBtn" class="sound-btn" style="color: black;">🔔 Sonido: ON</button>
+      </div>
+      <div style="margin-top: 10px;">
+        <input type="range" min="0" max="1" step="0.1" value="1" id="volumeControl" style="width: 50%;">
+      </div>
+      <div class="tasks" style="margin-top: 20px;">
+        <h3 style="color: black;">Tasks</h3>
+        <input type="text" id="taskInput" placeholder="Add a task..." style="width: 80%; padding: 10px; border-radius: 5px; font-size: 16px; color: black;">
+        <button onclick="addTask()" style="padding: 10px; border-radius: 5px; font-size: 16px; color: black;">+</button>
+        <ul id="taskList" class="task-list" style="list-style: none; padding: 0;"></ul>
+      </div>
+    </div>
+  
+    <audio id="alarmSound" preload="auto">
+      <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg">
+    </audio>
+ 
+    
+    <script>
+
+const volumeControl = document.getElementById("volumeControl");
+volumeControl.addEventListener("input", () => {
+  alarmSound.volume = parseFloat(volumeControl.value);
+});
+
+      let time = 25 * 60;
+      let timerInterval;
+      let isRunning = false;
+      let mode = 'pomodoro';
+      let soundEnabled = localStorage.getItem("soundEnabled") !== "false";
+      const alarmSound = document.getElementById("alarmSound");
+  
+      const timerDisplay = document.getElementById("timer");
+      const startPauseBtn = document.getElementById("startPauseBtn");
+      const soundToggleBtn = document.getElementById("soundToggleBtn");
+      const taskInput = document.getElementById("taskInput");
+      const taskList = document.getElementById("taskList");
+  
+      function updateTimerDisplay() {
+        let minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      }
+  
+      function playAlarmSound() {
+        if (soundEnabled) {
+          alarmSound.muted = false;
+          alarmSound.volume = 1;
+          alarmSound.currentTime = 0;
+          alarmSound.play().catch(e => console.log("No se pudo reproducir el sonido:", e));
+        }
+      }
+  
+      function startPauseTimer() {
+        if (isRunning) {
+          clearInterval(timerInterval);
+          isRunning = false;
+          startPauseBtn.textContent = "START";
+        } else {
+          playAlarmSound(); // 🔊 Sonido al iniciar
+          timerInterval = setInterval(() => {
+            if (time > 0) {
+              time--;
+              updateTimerDisplay();
+            } else {
+              clearInterval(timerInterval);
+              playAlarmSound(); // 🔊 Sonido al terminar
+              alert("¡Tiempo terminado! Tómate un descanso.");
+              isRunning = false;
+              startPauseBtn.textContent = "START";
+              if (mode === 'pomodoro') {
+                setMode('shortBreak');
+              } else {
+                setMode('pomodoro');
+              }
+            }
+          }, 1000);
+          isRunning = true;
+          startPauseBtn.textContent = "PAUSE";
+        }
+      }
+  
+      function setMode(selectedMode) {
+        mode = selectedMode;
+        clearInterval(timerInterval);
+        isRunning = false;
+        startPauseBtn.textContent = "START";
+        time = mode === 'pomodoro' ? 25 * 60 : mode === 'shortBreak' ? 5 * 60 : 15 * 60;
+        updateTimerDisplay();
+  
+        document.querySelectorAll(".modes button").forEach(btn => btn.classList.remove("active"));
+        document.getElementById(`${mode}Btn`).classList.add("active");
+  
+        playAlarmSound(); // 🔊 Sonido al cambiar de modo
+      }
+  
+      function toggleSound() {
+        soundEnabled = !soundEnabled;
+        localStorage.setItem("soundEnabled", soundEnabled);
+        soundToggleBtn.textContent = soundEnabled ? "🔔 Sonido: ON" : "🔕 Sonido: OFF";
+      }
+  
+      function addTask() {
+        const taskText = taskInput.value.trim();
+        if (taskText !== "") {
+          const li = document.createElement("li");
+          li.textContent = taskText;
+          li.style = "background: white; color: #6E382E; margin: 5px; padding: 10px; border-radius: 5px; font-size: 16px; cursor: pointer;";
+          li.addEventListener("click", () => {
+            li.classList.toggle("completed");
+            li.style.backgroundColor = li.classList.contains("completed") ? "#28a745" : "white";
+            li.style.color = li.classList.contains("completed") ? "white" : "#6E382E";
+            li.style.textDecoration = li.classList.contains("completed") ? "line-through" : "none";
+          });
+          taskList.appendChild(li);
+          taskInput.value = "";
+        }
+      }
+  
+      soundToggleBtn.addEventListener("click", toggleSound);
+      startPauseBtn.addEventListener("click", startPauseTimer);
+      document.getElementById("pomodoroBtn").addEventListener("click", () => setMode("pomodoro"));
+      document.getElementById("shortBreakBtn").addEventListener("click", () => setMode("shortBreak"));
+      document.getElementById("longBreakBtn").addEventListener("click", () => setMode("longBreak"));
+  
+      updateTimerDisplay();
+    </script>
+  </section>
+  
+
+    </main>
+  </div>
+
+  <!-- JS UNIFICADO -->
+  <script>
+    
+function mostrar(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  // Mostrar calendario solo al activarlo
+  if (id === 'calendario') {
+    generarCalendarioEst();
+  }
+}
+
+
+    // CALIFICACIONES
+    document.getElementById('claveCalificaciones').addEventListener('input', function () {
+      document.getElementById('formNotas').style.display = this.value === '12' ? 'block' : 'none';
+    });
+
+    function agregarNota() {
+      const nombre = document.getElementById('nombreEst').value.trim();
+      const tema = document.getElementById('temaEst').value.trim();
+      const nota = parseFloat(document.getElementById('notaEst').value);
+      if (!nombre || !tema || isNaN(nota)) return;
+
+      const id = Date.now();
+      const nuevaNota = { id, nombre, tema, nota: nota.toFixed(1) };
+      const notas = JSON.parse(localStorage.getItem('calificaciones') || '[]');
+      notas.unshift(nuevaNota);
+      localStorage.setItem('calificaciones', JSON.stringify(notas));
+      mostrarNotas();
+
+      document.getElementById('nombreEst').value = "";
+      document.getElementById('temaEst').value = "";
+      document.getElementById('notaEst').value = "";
+    }
+
+    function mostrarNotas() {
+      const tbody = document.getElementById('tablaNotas');
+      tbody.innerHTML = "";
+      const notas = JSON.parse(localStorage.getItem('calificaciones') || '[]');
+      notas.forEach(n => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+          <td contenteditable onblur="editarNota(${n.id}, 'nombre', this.innerText)">${n.nombre}</td>
+          <td contenteditable onblur="editarNota(${n.id}, 'tema', this.innerText)">${n.tema}</td>
+          <td contenteditable onblur="editarNota(${n.id}, 'nota', this.innerText)">${n.nota}</td>
+          <td><button onclick="eliminarNota(${n.id})" style="background:#e53935; color:white; border:none; border-radius:4px; padding:4px 8px;">Eliminar</button></td>
+        `;
+        tbody.appendChild(fila);
+      });
+    }
+
+    function editarNota(id, campo, valor) {
+      const notas = JSON.parse(localStorage.getItem('calificaciones') || '[]');
+      const index = notas.findIndex(n => n.id === id);
+      if (index > -1) {
+        notas[index][campo] = campo === 'nota' ? parseFloat(valor).toFixed(1) : valor;
+        localStorage.setItem('calificaciones', JSON.stringify(notas));
+      }
+    }
+
+    function eliminarNota(id) {
+      let notas = JSON.parse(localStorage.getItem('calificaciones') || '[]');
+      notas = notas.filter(n => n.id !== id);
+      localStorage.setItem('calificaciones', JSON.stringify(notas));
+      mostrarNotas();
+    }
+
+    function borrarTodasNotas() {
+      if (confirm("¿Seguro que quieres borrar todas las calificaciones?")) {
+        localStorage.removeItem('calificaciones');
+        mostrarNotas();
+      }
+    }
+
+    window.addEventListener('load', () => {
+      cargarTema();
+      mostrarForos();
+      mostrarNotas();
+    });
+  </script>
+
+  <!-- Agente IA Kai® -->
+<div id="chat-container1" class="chat-container1">
+    <iframe 
+      src="https://studio.d-id.com/agents/share?id=agt_8LlMaU4m&utm_source=copy&key=WVhWMGFEQjhOamRpWlRFeVpURXhOekEyTVRZMU0yVTVaV1EwWW1VMk9rMDNOREJHYkhGVFUxaEVhMUEyU0Rjd1VsUlZOQT09" 
+      allow="microphone; camera; autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
+  </div>
+  
+  <button id="chat-toggle1" class="chat-button1">
+    <img src="IMAGENES/Kai.jpeg" alt="Chatbot Avatar">
+  </button>
+  
+  <style>
+    .chat-button1 {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 100px;
+      height: 100px;
+      background-color: gray;
+      border: none;
+      border-radius: 50%;
+      box-shadow: 0px 6px 15px #070000;
+      cursor: pointer;
+      overflow: hidden;
+      padding: 0;
+      transition: transform 0.9s ease, box-shadow 0.3s ease;
+      animation: float 2s ease-in-out infinite;
+      z-index: 10000;
+    }
+  
+    .chat-button1 img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  
+    .chat-container1 {
+      position: fixed;
+      bottom: 140px;
+      right: 50px;
+      width: 350px;
+      height: 400px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0px 4px 10px rgba(133, 133, 133, 0.2);
+      overflow: hidden;
+      display: none;
+      transition: all 0.3s ease-in-out;
+      z-index: 9999;
+    }
+  
+    .chat-button1:hover {
+      transform: translateY(-10px);
+      box-shadow: 0px 6px 15px #868686;
+    }
+  
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+  
+    .chat-container1 iframe {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      border: none;
+    }
+  </style>
+  
+  <script>
+    document.getElementById('chat-toggle1').addEventListener('click', function () {
+      const chat = document.getElementById('chat-container1');
+      chat.style.display = (chat.style.display === 'none' || chat.style.display === '') ? 'block' : 'none';
+    });
+  </script>
+  
+</body>
+</html>
+
+      
+  
