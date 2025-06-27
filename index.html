@@ -9,38 +9,34 @@
   <link rel="shortcut icon" href="IMAGENES/ICONO.png" type="image/x-icon" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
 
-    <style>
+  <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html, body {
+    body {
       font-family: 'Arial', sans-serif;
       background: linear-gradient(135deg, #e6ecf7, #b773df44);
       color: black;
-      min-height: 100vh;
-      overflow-x: hidden;
+      height: 100vh;
+      overflow: hidden;
     }
 
     .container {
       display: flex;
+      height: 100vh;
+      width: 100vw;
       flex-direction: row;
-      flex-wrap: wrap;
-      width: 100%;
-      min-height: 100vh;
-    }
-
-    .video-side, .login-side {
-      flex: 1 1 100%;
-      padding: 20px;
     }
 
     .video-side {
-      background: url('IMAGENES/fondo_intergalactico.jpg') no-repeat center center;
-      background-size: cover;
+      flex: 1;
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      position: relative;
+      background: url('IMAGENES/fondo_intergalactico.jpg') no-repeat center center;
+      background-size: cover;
+      padding: 20px;
     }
 
     .select-country {
@@ -50,22 +46,20 @@
       color: black;
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
       z-index: 2;
-      text-align: center;
     }
 
     .flags {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
       margin-top: 10px;
       z-index: 2;
       text-align: center;
-      width: 100%;
-      max-width: 600px;
+      justify-items: center;
     }
 
     .flags img {
-      height: 80px;
+      height: 100px;
       cursor: pointer;
       transition: transform 0.2s;
     }
@@ -76,7 +70,7 @@
 
     .flag-label {
       color: black;
-      font-size: 16px;
+      font-size: 18px;
       margin-top: 8px;
       font-weight: bold;
     }
@@ -109,7 +103,7 @@
     }
 
     #animalito {
-      width: 200px;
+      width: 280px;
       height: auto;
       animation: float 3s ease-in-out infinite, pulse 4s ease-in-out infinite, glow 6s ease-in-out infinite;
     }
@@ -132,14 +126,16 @@
     .popup-bienvenida {
       background: rgba(0, 0, 0, 0.8);
       color: white;
-      padding: 15px 20px;
-      border-radius: 10px;
-      font-size: 15px;
+      padding: 20px 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
       text-align: center;
-      max-width: 90%;
+      font-size: 18px;
+      max-width: 320px;
     }
 
     .login-side {
+      flex: 1;
       background-image: url('IMAGENES/FONDO_LogIn.png');
       background-size: cover;
       background-position: center;
@@ -147,52 +143,151 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 40px;
     }
 
     .logo {
-      width: 70%;
-      max-width: 270px;
-      margin: 10px auto;
+      width: 270px;
+      margin-bottom: 20px;
     }
 
     .login-container {
       background-color: rgba(0, 0, 0, 0.6);
-      padding: 20px;
+      padding: 30px;
       border-radius: 10px;
-      width: 90%;
-      max-width: 320px;
+      width: 320px;
       text-align: center;
     }
 
-    .login-container input, .button {
+    .login-container input {
       width: 100%;
       padding: 12px;
-      margin: 8px 0;
+      margin: 10px 0;
       border: none;
       border-radius: 5px;
-    }
-
-    .login-container input {
       background: rgba(255, 255, 255, 0.9);
       color: black;
     }
 
     .button {
+      margin-top: 20px;
+      padding: 12px;
+      font-size: 18px;
       background-color: #e53611;
+      border: none;
+      border-radius: 5px;
       color: white;
-      font-size: 16px;
       cursor: pointer;
+      width: 100%;
     }
 
     .button:hover {
       background-color: rgb(2, 0, 12);
     }
 
-    /* Responsive video */
-    .modal-video video {
+    /* MODAL VIDEO */
+    #modalVideo {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .video-container {
+      position: relative;
+      max-width: 800px;
+      width: 90%;
+      background: black;
+      border-radius: 10px;
+      overflow: hidden;
+      padding-bottom: 10px;
+      margin-top: 10px;
+    }
+
+    #videoBienvenida {
       width: 100%;
       height: auto;
-      max-height: 300px;
+      display: block;
+    }
+
+    .cerrar-video {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .demo-calendly {
+      display: block;
+      margin: 20px auto 0;
+      padding: 12px 25px;
+      background: #e53611;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .video-side, .login-side {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .flags {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      #animalito {
+        width: 200px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .flags {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .popup-bienvenida {
+        font-size: 16px;
+        max-width: 90%;
+      }
+
+      .login-container {
+        padding: 20px;
+      }
+
+      .button {
+        font-size: 16px;
+      }
+
+      .demo-calendly {
+        font-size: 14px;
+        padding: 10px 20px;
+      }
     }
   </style>
 </head>
